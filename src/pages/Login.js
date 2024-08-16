@@ -15,7 +15,7 @@ const Login = () => {
   const handleChange = (e) => {
     // e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
     const copyLogininfo = { ...Logininfo };
     copyLogininfo[name] = value;
     setLoginInfo(copyLogininfo);
@@ -23,7 +23,7 @@ const Login = () => {
   console.log(Logininfo);
   const handleLogin =async(e) => {
     e.preventDefault();
-    console.log(Logininfo);
+    // console.log(Logininfo);
     const { username, password} = Logininfo;
     if(!username || !password) {
       return alert('Fill the details')

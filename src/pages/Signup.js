@@ -24,11 +24,16 @@ const Signup = () => {
   console.log(signupinfo);
   const handleSignup =async(e) => {
     e.preventDefault();
-    console.log(signupinfo);
+    // console.log(signupinfo);
     const { username, password, confirmPassword } = signupinfo;
-    if(!username || !password || (password !== confirmPassword)) {
+    if(!username || !password || !confirmPassword) {
       return alert('Fill the details')
-    }try{
+
+    }
+    else if(password !== confirmPassword){
+      return alert('password not matched')
+    }
+    try{
       const res = await fetch(`${API_URL}/vendor/register`, {
         method: 'POST',
         headers: {
@@ -36,9 +41,9 @@ const Signup = () => {
         },
         body: JSON.stringify(signupinfo)
       }).then((res) => res.json())
-      console.log(res);
+      // console.log(res);
       const result= await res.json();
-      console.log(result);
+      // console.log(result);
       const {msg,success,err}=result;
       if(success){
         window.confirm('signup successfully');
