@@ -12,7 +12,7 @@ const Main = () => {
       const token = localStorage.getItem('logintoken');
     
       if (!token) {
-        console.log('No token found, redirecting to login.');
+        // console.log('No token found, redirecting to login.');
         navigate('/login');
         return;
       }
@@ -21,8 +21,8 @@ const Main = () => {
         // Decode the token to get user details
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.vendorid;  // Adjust based on your token payload
-        console.log("user id : ",userId)
-        console.log("token : ",decodedToken)
+        // console.log("user id : ",userId)
+        // console.log("token : ",decodedToken)
         const response = await fetch(`${API_URL}/vendor/singlevendor/${userId}`, {
           method: 'GET',
           headers: {
@@ -36,12 +36,12 @@ const Main = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        console.log("response : ",response)
+        // console.log("response : ",response)
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
           const userData = await response.json();
           setUser(userData);
-          console.log("user data : ",userData);
+          // console.log("user data : ",userData);
         } else {
           throw new Error('Response is not JSON');
         }
