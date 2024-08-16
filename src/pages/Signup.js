@@ -16,12 +16,12 @@ const Signup = () => {
   const handleChange = (e) => {
     // e.preventDefault();
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
     const copysignupinfo = { ...signupinfo };
     copysignupinfo[name] = value;
     setsignupInfo(copysignupinfo);
   }
-  console.log(signupinfo);
+  // console.log(signupinfo);
   const handleSignup =async(e) => {
     e.preventDefault();
     // console.log(signupinfo);
