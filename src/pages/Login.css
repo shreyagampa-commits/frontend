@@ -1,0 +1,115 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+.main{
+    background-image: url('https://static.vecteezy.com/system/resources/previews/039/585/327/non_2x/ai-generated-fashion-jewelry-necklace-bracelet-earring-shiny-elegant-precious-gem-collection-generated-by-ai-free-photo.jpg');
+    background-color: rgb(52, 143, 207);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: x-large;
+}
+.container{
+    /* display: flex; */
+    justify-content:center;
+    align-items: center;
+    color: gold;
+    /* background-image: url('https://static.vecteezy.com/system/resources/previews/039/585/327/non_2x/ai-generated-fashion-jewelry-necklace-bracelet-earring-shiny-elegant-precious-gem-collection-generated-by-ai-free-photo.jpg'); */
+    backdrop-filter: blur(10000px);
+    border-radius: 8px;
+    width: 30%;
+    /* height: 500px; */
+    max-width: 100%;
+    overflow: hidden;
+    padding: 20px 30px;
+    font-family: sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* font-size: x-large; */
+}
+h1{
+    text-align: center;
+    margin: 0 0 20px;
+    /* font-size: x-large; */
+
+}
+h1:hover{   
+    color: yellow;
+    text-decoration: underline;
+
+}
+.box{
+    font-size: xx-large;
+    margin-left: 10px;
+    padding: 10px;
+    /* font-size: larger; */
+}
+button{
+    cursor: pointer;
+    background-color: rgb(52, 143, 207);
+    color: white;
+    border: 0;
+    justify-content: center;
+    border-radius: 5px;
+    /* font-size: 34px; */
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 30%;
+}
+button:hover{
+    background-color: rgb(77, 205, 77);
+}
+span{
+    display: block;
+    /* text-align: center; */
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    /* font-size: xx-large; */
+}
+input{
+    font-size: x-large;
+    padding: 5px;
+    width: 90%; 
+    border-radius: 10px;
+    /* font-size: medium; */
+    font-family: 'Times New Roman', Times, serif;
+    border: 1px solid white;
+}
+.link{
+    color: rgb(77, 205, 77);
+    text-decoration: none;
+    font-size: xx-large;
+}
+.link:hover{
+    text-decoration: underline;
+}
+@media screen and (max-width: 1300px) {
+    input, h1,button,.box,.container{
+        font-size: larger;
+    }
+    .container{
+        width: 70%;
+    }
+    span{
+        font-size: larger;
+    }
+    .link{
+        font-size: larger;
+    }
+}
+@media screen and (min-width: 1300px) {
+    input, h1,button,.box,.container,.link,span{
+        font-size: xx-large;
+    }
+    .container{
+        width: 40%;
+    }
+
+}
