@@ -20,7 +20,7 @@ const Login = () => {
     copyLogininfo[name] = value;
     setLoginInfo(copyLogininfo);
   }
-  console.log(Logininfo);
+  // console.log(Logininfo);
   const handleLogin =async(e) => {
     e.preventDefault();
     // console.log(Logininfo);
@@ -35,9 +35,9 @@ const Login = () => {
         },
         body: JSON.stringify(Logininfo)
       })
-      console.log(res);
+      // console.log(res);
       const result= await res.json();
-      console.log(result);
+      // console.log(result);
       const {msg,success,token,err}=result;
       if(success){
         window.confirm("logined successfully");

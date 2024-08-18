@@ -11,7 +11,7 @@ const Main = () => {
   const [sdImages, setSdImages]=useState([]); // State for visibility
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(() =>{
     const fetchUserData = async () => {
       const token = localStorage.getItem('logintoken');
 
@@ -70,7 +70,7 @@ const Main = () => {
       formData.append('images', file); // Append each file with key 'images'
     });
 
-    fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`, {
+    fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`,{
       method: 'POST',
       body: formData,
     })
@@ -238,3 +238,5 @@ const Main = () => {
 };
 
 export default Main;
+
+
