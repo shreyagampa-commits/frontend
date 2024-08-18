@@ -70,6 +70,7 @@ const Signup = () => {
   return (
     <div className='main'>
       <div className='container'>
+      <Link to="/" className='link'>Home</Link>
         <h1>Signup</h1>
         <form onSubmit={handleSignup}>
           <div className='box'>

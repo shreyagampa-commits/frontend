@@ -64,6 +64,7 @@ const Login = () => {
   return (
     <div className='main'>
       <div className='container'>
+        <Link to="/" className='link'>Home</Link>
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
           <div className='box'>
