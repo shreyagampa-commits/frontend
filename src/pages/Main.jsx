@@ -183,7 +183,7 @@ const Main = () => {
   };
   const deleteAllImages = async () => {
     try {
-      const response = await fetch(`${API_URL}/vendor/delimg/${user.employee._id}`, {
+      const response = await fetch(`${API_URL}/vendor/delimges/${user.employee._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
