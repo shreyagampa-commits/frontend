@@ -153,6 +153,7 @@ const Main = () => {
   }
   const deleteImage = async (image) => {
     try {
+      console.log('Deleting image:', image, 'for user:', user.employee._id);
       // Extract the actual image filename from the full path
       const index = image.indexOf('uploads') + 8; // Adjust to skip the 'uploads' directory in the path
       const imageName = image.slice(index);
@@ -181,10 +182,28 @@ const Main = () => {
     }
   };
   const deleteAllImages = async () => {
-    for (let image of selectedImages) {
-      await deleteImage(image);
+    try {
+      const response = await fetch(`${API_URL}/vendor/delimg/${user.employee._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Image deletion response:', data);
+  
+      // Reload the page after successful deletion
+      window.location.reload();
+      
+    } catch (error) {
+      console.error('Error deleting images:', error);
     }
   };
+  
+  
 
   const delacc = async () => {
     if (!user || !user.employee._id) {
