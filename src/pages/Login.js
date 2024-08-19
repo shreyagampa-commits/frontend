@@ -28,6 +28,7 @@ const Login = () => {
     if(!username || !password) {
       return alert('Fill the details')
     }try{
+      console.log(Logininfo);
       const res = await fetch(`${API_URL}/vendor/login`, {
         method: 'POST',
         headers: {

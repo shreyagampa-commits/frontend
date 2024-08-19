@@ -22,7 +22,7 @@ const Signup = () => {
     setsignupInfo(copysignupinfo);
   }
   // console.log(signupinfo);
-  const handleSignup =async(e) => {
+  const handleSignup =async(e,req,res) => {
     e.preventDefault();
     // console.log(signupinfo);
     const { username, password, confirmPassword } = signupinfo;
@@ -40,7 +40,7 @@ const Signup = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(signupinfo)
-      }).then((res) => res.json())
+      })
       // console.log(res);
       const result= await res.json();
       // console.log(result);

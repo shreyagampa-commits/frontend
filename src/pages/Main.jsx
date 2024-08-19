@@ -8,10 +8,11 @@ const Main = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [iv, setIv]=useState(false);
-  const [sdImages, setSdImages]=useState([]); // State for visibility
+  const [sdImages, setSdImages]=useState([]);
+  const [givenimg, setGivenimg]=useState([]); // State for visibility
   const navigate = useNavigate();
 
-  useEffect(() =>{
+  useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('logintoken');
 
@@ -64,13 +65,13 @@ const Main = () => {
   const imgpost = (e) => {
     const files = Array.from(e.target.files);
     setSelectedImages(files.map(file => URL.createObjectURL(file)));
-
+    setGivenimg(files.map(file => URL.createObjectURL(file)));
     const formData = new FormData();
     files.forEach(file => {
       formData.append('images', file); // Append each file with key 'images'
     });
 
-    fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`,{
+    fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`, {
       method: 'POST',
       body: formData,
     })
@@ -78,6 +79,7 @@ const Main = () => {
       .then(data => {
         console.log('Image upload response:', data);
         setSelectedImages(data.employee.images.map(image => `${API_URL}/uploads/${image}`));
+        // setGivenimg(data.employee.images.map(image => image));
         // myimg(); // Fetch and display images after upload
       })
       .catch(error => {
@@ -178,20 +180,56 @@ const Main = () => {
       console.error('Error deleting image:', error);
     }
   };
-  
-
   const deleteAllImages = async () => {
     for (let image of selectedImages) {
       await deleteImage(image);
     }
   };
 
+  const delacc = async () => {
+    if (!user || !user.employee._id) {
+      console.error('User data is not loaded yet');
+      return;
+    }
+  
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    
+    if (!confirmDelete) {
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${API_URL}/vendor/deletevendor/${user.employee._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('logintoken')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Account deletion response:', data);
+  
+      // After account deletion, log the user out and navigate to the login page
+      localStorage.removeItem('logintoken');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error deleting account:', error);
+    }
+  };
+  
   return (
     <div>
       <div className="nav">
         <h1>Jewelry Pattern Generator</h1>
         <ul>
           <li><button onClick={handleLogout}>Logout</button></li>
+          <li><button onClick={()=>navigate('/up')}>updatepassword</button></li>
+          <li><button onClick={delacc}>Delete Account</button></li>
         </ul>
       </div>
 
@@ -202,7 +240,7 @@ const Main = () => {
           <div>
             <h2>Welcome, {user.employee.username}!</h2>
             <input type="file" onChange={imgpost} multiple />
-            {selectedImages.map((image, index) => (
+            {givenimg.map((image, index) => (
           
                   <img src={image} height={200} width={200} alt={`Uploaded preview ${index}`} />
         
@@ -226,7 +264,7 @@ const Main = () => {
         <div className="imgdelete" style={{ display: iv ? 'block' : 'none' }}>
               {sdImages.map((image, index) => (
                 <div key={index}>
-                  <img src={image} height={200} width={200} alt={`Uploaded preview ${index}`} />
+                  <img src={image} height={200} width={200} alt={`Uploaded preview ${index + 1}`} />
                   <button onClick={() => deleteImage(image)}>Delete</button>
                 </div>
               ))}
@@ -238,5 +276,3 @@ const Main = () => {
 };
 
 export default Main;
-
-
