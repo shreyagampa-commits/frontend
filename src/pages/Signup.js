@@ -10,6 +10,7 @@ const Signup = () => {
   const navigate=useNavigate();
   const [signupinfo, setsignupInfo] = useState({
     username: '',
+    email: '',
     password: '',
     confirmPassword: ''
   })
@@ -25,8 +26,8 @@ const Signup = () => {
   const handleSignup =async(e,req,res) => {
     e.preventDefault();
     // console.log(signupinfo);
-    const { username, password, confirmPassword } = signupinfo;
-    if(!username || !password || !confirmPassword) {
+    const { username,email, password, confirmPassword } = signupinfo;
+    if(!username || !password || !confirmPassword || !email) {
       return alert('Fill the details')
 
     }
@@ -41,9 +42,8 @@ const Signup = () => {
         },
         body: JSON.stringify(signupinfo)
       })
-      // console.log(res);
       const result= await res.json();
-      // console.log(result);
+
       const {msg,success,err}=result;
       if(success){
         window.confirm('signup successfully');
@@ -52,6 +52,7 @@ const Signup = () => {
         },1000)
         setsignupInfo({
           username: '',
+          email: '',
           password: '',
           confirmPassword: ''
         })
@@ -82,6 +83,17 @@ const Signup = () => {
                   autoFocus
                   placeholder='username'
                   value={signupinfo.username}
+              />
+          </div>
+          <div className='box'>
+              <label htmlFor='email'>Email:</label><br></br>
+              <input
+                  onChange={handleChange}
+                  type='email'
+                  name='email'
+                  autoFocus
+                  placeholder='email'
+                  value={signupinfo.email}
               />
           </div>
           <div className='box'>

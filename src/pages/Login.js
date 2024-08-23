@@ -31,7 +31,7 @@ const Login = () => {
       console.log(Logininfo);
       const res = await fetch(`${API_URL}/vendor/login`, {
         method: 'POST',
-        headers: {
+        headers:{
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(Logininfo)
@@ -94,6 +94,7 @@ const Login = () => {
           <span>Don't have an account?
               <Link to="/signup" className='link'>signup</Link>
           </span>
+          <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
         </form>
         {/* <ToastContainer/> */}
       </div>

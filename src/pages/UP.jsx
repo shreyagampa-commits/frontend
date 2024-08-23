@@ -25,7 +25,6 @@ const UP = () => {
       try {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.vendorid;
-        
         const response = await fetch(`${API_URL}/vendor/singlevendor/${userId}`, {
           method: 'GET',
           headers: {
@@ -121,28 +120,21 @@ const UP = () => {
       <div className="container" style={{ width: "50%", backgroundColor: "black" }}>
         <h1>CHANGE PASSWORD</h1>
         <form onSubmit={Changepassword}>
-          {/* <label htmlFor="old-password">Enter old password</label>
-          <input 
-            type="password" 
-            id="old-password" 
-            value={oldPassword} 
-            onChange={(e) => setOldPassword(e.target.value)} 
-          />
-          {errors.oldPassword && <p style={{ color: 'red' }}>{errors.oldPassword}</p>}
-           */}
-          <label htmlFor="new-password">Enter new password</label>
+          <label htmlFor="new-password">Enter new password:</label>
           <input 
             type="password" 
             id="new-password" 
+            placeholder='Enter new password'
             value={newPassword} 
             onChange={(e) => setNewPassword(e.target.value)} 
           />
           {errors.newPassword && <p style={{ color: 'red' }}>{errors.newPassword}</p>}
-          
-          <label htmlFor="confirm-password">Enter confirm password</label>
+          <br></br>
+          <label htmlFor="confirm-password">Enter confirm password:</label>
           <input 
             type="password" 
-            id="confirm-password" 
+            id="confirm-password"             
+            placeholder='Enter confirm password'
             value={confirmPassword} 
             onChange={(e) => setConfirmPassword(e.target.value)} 
           />

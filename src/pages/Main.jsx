@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'; // Correct import for jwt-decode
 import { API_URL } from '../data/apipath';
-
+import './Main.css'
 const Main = () => {
   const [user, setUser] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -242,13 +242,13 @@ const Main = () => {
   };
   
   return (
-    <div>
+    <div className='content'>
+      <h1>Jewelry Pattern Generator</h1>
       <div className="nav">
-        <h1>Jewelry Pattern Generator</h1>
         <ul>
-          <li><button onClick={handleLogout}>Logout</button></li>
-          <li><button onClick={()=>navigate('/up')}>updatepassword</button></li>
-          <li><button onClick={delacc}>Delete Account</button></li>
+          <li><button onClick={handleLogout} className='btns'>Logout</button></li>
+          <li><button onClick={()=>navigate('/up')} className='btns'>updatepassword</button></li>
+          <li><button onClick={delacc} className='btns'>Delete Account</button></li>
         </ul>
       </div>
 

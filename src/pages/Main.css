@@ -1,0 +1,170 @@
+/* Global Styles */
+body {
+    background-color: #f0f0f5;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #4a47a3;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .nav ul li button {
+    background-color: #4a47a3;
+    border: none;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .nav ul li button:hover {
+    background-color: #6563c5;
+    transform: translateY(-2px);
+  }
+  
+  .content {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Add your jewelry image path here */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  button {
+    background-color: #4a47a3;
+    
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #6563c5;
+    transform: translateY(-2px);
+  }
+  
+  .image-container img,
+  .imgdelete img {
+    border: 2px solid #4a47a3;
+    border-radius: 12px;
+    margin: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .image-container img:hover,
+  .imgdelete img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .deletephotos {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .deletephotos button {
+    background-color: #e74c3c;
+  }
+  
+  .deletephotos button:hover {
+    background-color: #ff6b6b;
+  }
+  .btns{
+    width: 200px;
+  }
+  /* Media Queries for Responsiveness */
+  @media (max-width: 1200px) {
+    .content {
+      max-width: 90%;
+      padding: 20px;
+    }
+    .btns{
+      padding: 1000px;
+    }
+    .nav ul {
+      gap: 15px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.75rem;
+    }
+    
+    .nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .nav ul li button {
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+    }
+    
+    .image-container img,
+    .imgdelete img {
+      max-width: 150px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    
+    .content {
+      padding: 15px;
+    }
+    
+    .nav ul li button {
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+    
+    .image-container img,
+    .imgdelete img {
+      max-width: 120px;
+    }
+  }
+  
