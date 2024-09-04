@@ -260,9 +260,7 @@ const Main = () => {
             <h2>Welcome, {user.employee.username}!</h2>
             <input type="file" onChange={imgpost} multiple />
             <div className="store">{givenimg.map((image, index) => (
-          
                   <img src={image} className="storeimg" height={200} width={200} alt={`Uploaded preview ${index}`} />
-        
               ))}
             </div>
             <br></br>
