@@ -125,7 +125,18 @@ body {
       font-size: 2rem;
     }
   }
-  
+  .store{
+    background-color: #a79191;
+    width: 900px; 
+  }
+  .storeimg{
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin:20px;
+  }
   @media (max-width: 768px) {
     h1 {
       font-size: 1.75rem;

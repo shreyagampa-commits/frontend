@@ -90,6 +90,20 @@ input{
 .link:hover{
     text-decoration: underline;
 }
+.otpinput{
+    width: 40px;
+    height: 40px;
+    margin:5px;
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: white;
+}
+.otpinput:focus ,.emailinput:focus{
+    border:1px solid blue;
+    box-shadow: 1px 1px 8px 1px black;
+    color: black; 
+    outline: none; 
+}
 @media screen and (max-width: 1300px) {
     input, h1,button,.box,.container{
         font-size: larger;

@@ -259,19 +259,22 @@ const Main = () => {
           <div>
             <h2>Welcome, {user.employee.username}!</h2>
             <input type="file" onChange={imgpost} multiple />
-            {givenimg.map((image, index) => (
+            <div className="store">{givenimg.map((image, index) => (
           
-                  <img src={image} height={200} width={200} alt={`Uploaded preview ${index}`} />
+                  <img src={image} className="storeimg" height={200} width={200} alt={`Uploaded preview ${index}`} />
         
               ))}
+            </div>
             <br></br>
             <button onClick={myimg}>Show My Images</button>
             <div className="image-container" style={{ display: isVisible ? 'block' : 'none' }}>
+            <div className="store">
               {selectedImages.map((image, index) => (
    
                   <img src={image} height={200} width={200} alt={`Uploaded preview ${index}`} />
       
               ))}
+            </div>
             </div>
           </div>
         ) : (
