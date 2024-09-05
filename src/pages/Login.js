@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useState } from 'react'
 import './Login.css'
 import { API_URL } from '../data/apipath'
+import {useGoogleLogin } from '@react-oauth/google';
+// import { googleAuth } from '../data/api'
 // import { handleError, handleSuccess } from '../utils'
 const Login = () => {
   const navigate=useNavigate();
@@ -62,6 +64,38 @@ const Login = () => {
       console.log(err);
     }
   }
+  const responseGoogle = async (res) => {
+    console.log(res);
+    try {
+      if (res['code']) {
+        const result = await fetch(`${API_URL}/vendor/google`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code: res['code'] }),
+        });
+        if (!result.ok) {
+          throw new Error('Failed to authenticate with Google');
+        }
+        const data = await result.json();
+        console.log('Google login successful:', data);
+        localStorage.setItem('logintoken', data.token);
+        navigate('/main');
+      }
+    } catch (err) {
+      console.error('Error during Google login:', err);
+    }
+  };
+  
+  
+  
+  const googleLogin = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: 'auth-code',
+  });
+  
   return (
     <div className='main'>
       <div className='container'>
@@ -97,6 +131,12 @@ const Login = () => {
           <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
         </form>
         {/* <ToastContainer/> */}
+        <div class="g-signin-button" onClick={googleLogin}>
+        <div class="content-wrapper">
+            <img class="google-logo" src="./image.png" alt='google' />
+            <span class="button-text">Sign in with Google</span>
+        </div>
+        </div>
       </div>
     </div>
   )

@@ -104,6 +104,55 @@ input{
     color: black; 
     outline: none; 
 }
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.g-signin-button {
+    margin-left: 40px;
+    display: inline-block;
+    width: 80%;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.button-text{
+    margin-bottom: 20px;
+}
+.g-signin-button:hover {
+    border: 2px solid black;
+    border-radius: 20px;
+}
+.content-wrapper {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-logo {
+    width: 30px;
+    height: 30px;
+    position:fixed-left;
+    /* margin-right: px; */
+}
+
+.button-text {
+    color: black;
+    font-size: larger;
+    font-weight: 500;
+    text-align: center;
+}
 @media screen and (max-width: 1300px) {
     input, h1,button,.box,.container{
         font-size: larger;
@@ -117,6 +166,7 @@ input{
     .link{
         font-size: larger;
     }
+    
 }
 @media screen and (min-width: 1300px) {
     input, h1,button,.box,.container,.link,span{
