@@ -24,8 +24,8 @@
     backdrop-filter: blur(10000px);
     border-radius: 8px;
     /* width: 100vh; */
-    /* height: 500px; */
-    max-width: 70vh;
+    /* height: 100%; */
+    max-width: 100vh;
     overflow: hidden;
     padding: 20px 30px;
     font-family: sans-serif;
@@ -50,7 +50,7 @@ h1:hover{
     margin-top: 20px;
     label{
         margin-left: 10px;
-        font-size: xx-large;
+        font-size: x-large;
     }
     input{
         font-size: 2rem;
