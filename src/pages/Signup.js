@@ -70,7 +70,7 @@ const Signup = () => {
   }
   return (
     <div className='main'>
-      <div className='container'>
+      <div className='container' style={{ width: '600px'}}>
       <Link to="/" className='link'>Home</Link>
         <h1>Signup</h1>
         <form onSubmit={handleSignup}>
@@ -81,7 +81,7 @@ const Signup = () => {
                   type='text'
                   name='username'
                   autoFocus
-                  placeholder='username'
+                  placeholder='Enter username'
                   value={signupinfo.username}
               />
           </div>
@@ -92,7 +92,7 @@ const Signup = () => {
                   type='email'
                   name='email'
                   autoFocus
-                  placeholder='email'
+                  placeholder='Enter your email'
                   value={signupinfo.email}
               />
           </div>
@@ -103,7 +103,7 @@ const Signup = () => {
                   type='password'
                   name='password'
                   autoFocus
-                  placeholder='password'
+                  placeholder='Enter password'
                   value={signupinfo.password}
               />
           </div>
@@ -115,7 +115,7 @@ const Signup = () => {
                   type='password'
                   name='confirmPassword'
                   autoFocus
-                  placeholder='password'
+                  placeholder='Re-Enter password'
                   value={signupinfo.confirmPassword}
               />
           </div>

@@ -13,7 +13,7 @@
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-size: x-large;
+    font-size: xx-large;
 }
 .container{
     /* display: flex; */
@@ -22,10 +22,30 @@
     color: gold;
     /* background-image: url('https://static.vecteezy.com/system/resources/previews/039/585/327/non_2x/ai-generated-fashion-jewelry-necklace-bracelet-earring-shiny-elegant-precious-gem-collection-generated-by-ai-free-photo.jpg'); */
     backdrop-filter: blur(10000px);
+    border-radius: 18px;
+    /* width: 60px; */
+    /* height: 10vh; */
+    /* max-width: 60%; */
+    /* width: 500px; */
+    overflow: hidden;
+    padding: 20px 30px;
+    font-family: sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: x-large;
+    
+}
+.upcontainer{
+    /* display: flex; */
+    justify-content:center;
+    align-items: center;
+    color: gold;
+    /* background-image: url('https://static.vecteezy.com/system/resources/previews/039/585/327/non_2x/ai-generated-fashion-jewelry-necklace-bracelet-earring-shiny-elegant-precious-gem-collection-generated-by-ai-free-photo.jpg'); */
+    /* backdrop-filter: blur(10000px); */
     border-radius: 8px;
     /* width: 100vh; */
     /* height: 100%; */
-    max-width: 100vh;
+    margin-top: 50px;
+    max-width: 600px;
     overflow: hidden;
     padding: 20px 30px;
     font-family: sans-serif;
@@ -44,18 +64,18 @@ h1:hover{
 
 }
 .box{
-    /* font-size: xx-large; */
-    margin-left: 10px;
-    padding: 10px;
-    margin-top: 20px;
+    font-size: xx-large;
+    margin-left: 2px;
+    padding: 2px;
+    margin-top: 2px; 
     label{
         margin-left: 10px;
         font-size: x-large;
     }
-    input{
+    /* input{
         font-size: 2rem;
         width: 500px;
-    }
+    } */
 }
 button{
     cursor: pointer;
@@ -131,6 +151,7 @@ input{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 .g-signin-button {
+    margin-top: 10px;
     margin-left: 40px;
     display: inline-block;
     width: 80%;

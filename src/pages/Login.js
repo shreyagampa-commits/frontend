@@ -95,7 +95,7 @@ const Login = () => {
   
   return (
     <div className='main'>
-      <div className='container'>
+      <div className='container' style={{ width: '600px'}}>
         <Link to="/" className='link'>Home</Link>
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
@@ -123,11 +123,13 @@ const Login = () => {
           </div>
           <button type='submit'>Login</button>
           <span>Don't have an account?
-              <Link to="/signup" className='link'>signup</Link>
+              <Link to="/signup" className='link'>signup</Link><br></br>
+              <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
           </span>
-          <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
+          
         </form>
         {/* <ToastContainer/> */}
+        <hr></hr>
         <div class="g-signin-button" onClick={googleLogin}>
         <div class="content-wrapper">
             <img class="google-logo" src="./image.png" alt='google' />

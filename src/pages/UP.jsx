@@ -117,12 +117,12 @@ const UP = () => {
 
   return (
     <div className="up">
-      <div className="container" style={{ width: "100%", backgroundColor: "black" }}>
+      <div className="upcontainer" style={{ width: "100%", backgroundColor: "black" }}>
         <h1>CHANGE PASSWORD</h1>
         <form onSubmit={Changepassword}>
           <label htmlFor="new-password">Enter new password:</label>
           <input 
-            type="password" 
+            type="text" 
             id="new-password" 
             placeholder='Enter new password'
             value={newPassword} 
@@ -132,7 +132,7 @@ const UP = () => {
           <br></br>
           <label htmlFor="confirm-password">Enter confirm password:</label>
           <input 
-            type="password" 
+            type="text" 
             id="confirm-password"             
             placeholder='Enter confirm password'
             value={confirmPassword} 
