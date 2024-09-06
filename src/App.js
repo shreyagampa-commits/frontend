@@ -5,9 +5,11 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Main from './pages/Main';
 import UP from './pages/UP';
+import Profile from './pages/Profile';
 import Forgotpassword from './pages/Forgotpassword';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { clientId } from './data/apipath';
+// import { UserProvider } from './pages/UserContext';
 const App = () => {
   const GoogleAuthWrapper = () => {
     return(
@@ -26,7 +28,9 @@ const App = () => {
             <Route path='/main' element={<Main/>}></Route>
             <Route path='/up' element={<UP/>}></Route>
             <Route path='/forgotpassword' element={<Forgotpassword/>}></Route>
+            <Route path='/profile' element={<Profile/>}></Route>
       </Routes>
+  
       </div>
   )
 }

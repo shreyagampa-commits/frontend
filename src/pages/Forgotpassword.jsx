@@ -204,6 +204,7 @@ const Forgotpassword = () => {
             type='email'
             name='email'
             autoFocus
+            className='emailinput'
             placeholder='Enter your email '
             value={Logininfo.email}
             required

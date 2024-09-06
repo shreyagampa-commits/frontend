@@ -116,8 +116,8 @@ const UP = () => {
 
 
   return (
-    <div>
-      <div className="container" style={{ width: "50%", backgroundColor: "black" }}>
+    <div className="up">
+      <div className="container" style={{ width: "100%", backgroundColor: "black" }}>
         <h1>CHANGE PASSWORD</h1>
         <form onSubmit={Changepassword}>
           <label htmlFor="new-password">Enter new password:</label>

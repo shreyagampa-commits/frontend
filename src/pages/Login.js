@@ -11,7 +11,7 @@ import {useGoogleLogin } from '@react-oauth/google';
 const Login = () => {
   const navigate=useNavigate();
   const [Logininfo, setLoginInfo] = useState({
-    username: '',
+    email: '',
     password: ''
   })
   const handleChange = (e) => {
@@ -26,8 +26,8 @@ const Login = () => {
   const handleLogin =async(e) => {
     e.preventDefault();
     // console.log(Logininfo);
-    const { username, password} = Logininfo;
-    if(!username || !password) {
+    const { email, password} = Logininfo;
+    if(!email || !password) {
       return alert('Fill the details')
     }try{
       console.log(Logininfo);
@@ -46,7 +46,7 @@ const Login = () => {
         window.confirm("logined successfully");
         localStorage.setItem('logintoken',token)
         setLoginInfo({
-          username: '',
+          email: '',
           password: ''
         })
         // localStorage.setItem('loggedUsername',name)
@@ -87,9 +87,6 @@ const Login = () => {
       console.error('Error during Google login:', err);
     }
   };
-  
-  
-  
   const googleLogin = useGoogleLogin({
     onSuccess: responseGoogle,
     onError: responseGoogle,
@@ -103,14 +100,14 @@ const Login = () => {
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
           <div className='box'>
-              <label htmlFor='username'>Username:</label><br></br>
+              <label htmlFor='email'>Email:</label><br></br>
               <input
                   onChange={handleChange}
                   type='text'
-                  name='username'
+                  name='email'
                   autoFocus
-                  placeholder='Enter your name'
-                  value={Logininfo.username}
+                  placeholder='Enter your Email'
+                  value={Logininfo.Email}
               />
           </div>
           <div className='box'>

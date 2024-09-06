@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'; // Correct import for jwt-decode
 import { API_URL } from '../data/apipath';
+// import Profile from './Profile';
 import './Main.css'
+// import { UserContext } from './UserContext';
 const Main = () => {
   const [user, setUser] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -11,7 +13,7 @@ const Main = () => {
   const [sdImages, setSdImages]=useState([]);
   const [givenimg, setGivenimg]=useState([]); // State for visibility
   const navigate = useNavigate();
-
+  // const { setPUser } = useContext(UserContext);
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('logintoken');
@@ -240,7 +242,7 @@ const Main = () => {
       console.error('Error deleting account:', error);
     }
   };
-  
+ 
   return (
     <div className='content'>
       <h1>Jewelry Pattern Generator</h1>
@@ -249,6 +251,7 @@ const Main = () => {
           <li><button onClick={handleLogout} className='btns'>Logout</button></li>
           <li><button onClick={()=>navigate('/up')} className='btns'>updatepassword</button></li>
           <li><button onClick={delacc} className='btns'>Delete Account</button></li>
+          <li><button className='btns' onClick={()=>{navigate('/profile')}}>Profile</button></li>
         </ul>
       </div>
 

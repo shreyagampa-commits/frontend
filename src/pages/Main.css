@@ -7,7 +7,16 @@ body {
     padding: 0;
     line-height: 1.6;
   }
-  
+.up{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 100%;
+  font-size: 2rem;
+  padding: 20px;
+
+}
   h1 {
     text-align: center;
     color: #4a47a3;
@@ -48,7 +57,7 @@ body {
   }
   
   .content {
-    max-width: 1000px;
+    max-width: 100%;
     margin: 20px auto;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -109,10 +118,10 @@ body {
     width: 200px;
   }
   /* Media Queries for Responsiveness */
-  @media (max-width: 1200px) {
+  @media (min-width: 1200px) {
     .content {
-      max-width: 90%;
-      padding: 20px;
+      max-width: 80%;
+      padding: 10px;
     }
     .btns{
       padding: 1000px;
