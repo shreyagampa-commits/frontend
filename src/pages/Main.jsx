@@ -1,16 +1,12 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; // Correct import for jwt-decode
+import {jwtDecode} from 'jwt-decode'; 
 import { API_URL } from '../data/apipath';
-// import Profile from './Profile';
 import './Main.css'
-// import { UserContext } from './UserContext';
 const Main = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [generatedImage, setGeneratedImage] = useState(null);
   const [user, setUser] = useState(null);
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [iv, setIv]=useState(false);
-  const [sdImages, setSdImages]=useState([]);
   const [givenimg, setGivenimg]=useState([]); // State for visibility
   const navigate = useNavigate();
   // const { setPUser } = useContext(UserContext);
@@ -44,8 +40,8 @@ const Main = () => {
 
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
-          const userData = await response.json();
-          setUser(userData);
+        const userData = await response.json();
+        setUser(userData);
           console.log("User Data:", userData);
         } else {
           throw new Error('Response is not JSON');
@@ -63,162 +59,38 @@ const Main = () => {
     localStorage.removeItem('user');
     navigate('/login');
   };
-
   const imgpost = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedImages(files.map(file => URL.createObjectURL(file)));
+    setSelectedFile(e.target.files[0]);
+    const files = Array.from(e.target.files); // Previews selected images
     setGivenimg(files.map(file => URL.createObjectURL(file)));
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('images', file); // Append each file with key 'images'
-    });
-
+  
+      const formData = new FormData();
+    files.forEach(file => formData.append('images', file)); // Append each file
+  
     fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`, {
       method: 'POST',
-      body: formData,
+      body: formData, // FormData automatically handles the 'multipart/form-data'
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Image upload response:', data);
-        setSelectedImages(data.employee.images.map(image => `${API_URL}/uploads/${image}`));
-        // setGivenimg(data.employee.images.map(image => image));
-        // myimg(); // Fetch and display images after upload
+        console.log('Image upload response:', data); 
       })
       .catch(error => {
         console.error('Error uploading images:', error);
       });
   };
-
-  const myimg = async () => {
-    setIsVisible(prevIsVisible => !prevIsVisible); // Toggle visibility
-    try {
-      const response = await fetch(`${API_URL}/vendor/singlevendor/${user.employee._id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const userData = await response.json();
-        console.log("Fetched User Data:", userData);
-
-        if (userData.employee && Array.isArray(userData.employee.images)) {
-          console.log("Image URLs:", userData.employee.images);
-          setSelectedImages(userData.employee.images.map(image => `${API_URL}/uploads/${image}`,0));
-        } else {
-          throw new Error('No images found in the response.');
-        }
-      } else {
-        throw new Error('Response is not JSON.');
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error.message);
-    }
-  };
-  const deleteimg =async () => {
-    setIv(prevsetIv => !prevsetIv); 
-    try {
-      const response = await fetch(`${API_URL}/vendor/singlevendor/${user.employee._id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const userData = await response.json();
-        console.log("Fetched User Data:", userData);
-
-        if (userData.employee && Array.isArray(userData.employee.images)) {
-          console.log("Image URLs:", userData.employee.images);
-          setSdImages(userData.employee.images.map(image => `${API_URL}/uploads/${image}`));
-        } else {
-          throw new Error('No images found in the response.');
-        }
-      } else {
-        throw new Error('Response is not JSON.');
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error.message);
-    }
-  }
-  const deleteImage = async (image) => {
-    try {
-      console.log('Deleting image:', image, 'for user:', user.employee._id);
-      // Extract the actual image filename from the full path
-      const index = image.indexOf('uploads') + 8; // Adjust to skip the 'uploads' directory in the path
-      const imageName = image.slice(index);
-      console.log('Deleting image:', imageName, 'for user:', user.employee._id);
-  
-      // Perform the DELETE request
-      const response = await fetch(`${API_URL}/vendor/delimg/${user.employee._id}/${imageName}`, {
-        method: 'DELETE', // Correct HTTP method in lowercase
-        headers: {
-          'Content-Type': 'application/json', // This header is not necessary for DELETE without body, but harmless
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-      console.log('Image deletion response:', data);
-  
-      // Update selectedImages state to remove the deleted image from the list
-      setSelectedImages((prevImages) => prevImages.filter((img) => img !== image));
-      setSdImages((prevImages) => prevImages.filter((img) => img !== image));
-    } catch (error) {
-      console.error('Error deleting image:', error);
-    }
-  };
-  const deleteAllImages = async () => {
-    try {
-      const response = await fetch(`${API_URL}/vendor/delimges/${user.employee._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Image deletion response:', data);
-  
-      // Reload the page after successful deletion
-      window.location.reload();
-      
-    } catch (error) {
-      console.error('Error deleting images:', error);
-    }
-  };
-  
-  
-
   const delacc = async () => {
     if (!user || !user.employee._id) {
       console.error('User data is not loaded yet');
       return;
     }
-  
+
     const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
     
     if (!confirmDelete) {
       return;
     }
-  
+
     try {
       const response = await fetch(`${API_URL}/vendor/deletevendor/${user.employee._id}`, {
         method: 'DELETE',
@@ -227,7 +99,7 @@ const Main = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -242,7 +114,39 @@ const Main = () => {
       console.error('Error deleting account:', error);
     }
   };
- 
+  const onUpload = async () => {
+    console.log(selectedFile);
+    console.log(user.employee.images.length, user.employee.images[0]);
+    // setSelectedFile(user.employee.images[user.employee.images.length-1]);
+    if (!selectedFile) {
+        console.error('No file selected for upload');
+        return;
+    }
+    console.log('Uploading file:', selectedFile);
+    try {
+        const formData = new FormData();
+        // Append the selected file to the formData object
+        formData.append('image', selectedFile);
+        console.log('fd',formData); 
+        // Make sure to send formData in the body of the fetch request
+        const response = await fetch(`http://localhost:4000/vendor/predict/${user.employee._id}`, {
+            method: 'POST',
+            // body: formData,
+        });
+        console.log(response,formData);
+        // // Check if the response is okay
+        if (!response.ok) {
+            throw new Error(`Error uploading file: ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log(data.result.node_response.fileName); // Assuming your API returns JSON data
+        // const outputPath = data.filename; // Adjust according to your API respons
+        setGeneratedImage(`http://localhost:4000/output/${data.result.node_response.fileName}`);
+        // console.log('Generated image URL:', outputPath);
+    } catch (error) {
+        console.error('Error uploading file:', error);
+    }
+  };
   return (
     <div className='content'>
       <h1>Jewelry Pattern Generator</h1>
@@ -252,6 +156,7 @@ const Main = () => {
           <li><button onClick={()=>navigate('/up')} className='btns'>updatepassword</button></li>
           <li><button onClick={delacc} className='btns'>Delete Account</button></li>
           <li><button className='btns' onClick={()=>{navigate('/profile')}}>Profile</button></li>
+          <li><button className='btns' onClick={()=>{navigate('/collections')}}>Collections</button></li>
         </ul>
       </div>
 
@@ -263,36 +168,16 @@ const Main = () => {
             <h2>Welcome, {user.employee.username}!</h2>
             <input type="file" onChange={imgpost} multiple />
             <div className="store">{givenimg.map((image, index) => (
-                  <img src={image} className="storeimg" height={200} width={200} alt={`Uploaded preview ${index}`} />
-              ))}
+                  <img src={image} className="storeimg" height={256} width={256} alt={`Uploaded preview ${index}`} />
+            ))}
+            { generatedImage ?( <img src={generatedImage} alt="Generated jewelry" />):( null )}
             </div>
             <br></br>
-            <button onClick={myimg}>Show My Images</button>
-            <div className="image-container" style={{ display: isVisible ? 'block' : 'none' }}>
-            <div className="store">
-              {selectedImages.map((image, index) => (
-   
-                  <img src={image} height={200} width={200} alt={`Uploaded preview ${index}`} />
-      
-              ))}
-            </div>
-            </div>
+            <button onClick={onUpload}>Upload Sketch</button>
           </div>
         ) : (
           <p>Loading user details...</p>
         )}
-      </div>
-      <div className="deletephotos">
-        <button onClick={deleteimg}>All Photos</button>
-        <div className="imgdelete" style={{ display: iv ? 'block' : 'none' }}>
-              {sdImages.map((image, index) => (
-                <div key={index}>
-                  <img src={image} height={200} width={200} alt={`Uploaded preview ${index + 1}`} />
-                  <button onClick={() => deleteImage(image)}>Delete</button>
-                </div>
-              ))}
-              <button onClick={deleteAllImages}>Delete All Photos</button>
-            </div>
       </div>
     </div>
   );

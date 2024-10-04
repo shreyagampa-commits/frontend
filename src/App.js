@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import UP from './pages/UP';
 import Profile from './pages/Profile';
 import Forgotpassword from './pages/Forgotpassword';
+import Collections from './pages/Collections';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { clientId } from './data/apipath';
 // import { UserProvider } from './pages/UserContext';
@@ -29,6 +30,7 @@ const App = () => {
             <Route path='/up' element={<UP/>}></Route>
             <Route path='/forgotpassword' element={<Forgotpassword/>}></Route>
             <Route path='/profile' element={<Profile/>}></Route>
+            <Route path='/collections'element={<Collections/>}></Route>
       </Routes>
   
       </div>
