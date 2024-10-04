@@ -157,7 +157,9 @@ const Collections = () => {
                             <th>Delete Image</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {
+                        (user?.employee?.images.length === 0)? (<h2>No images uploaded yet</h2>):
+                    (<tbody>
                         {Array.isArray(user?.employee?.images) &&
                             user.employee.images.map((image, index) => (
                                 <tr key={index}>
@@ -200,8 +202,8 @@ const Collections = () => {
                                     </td>
                                 </tr>
                             ))}
-                        
-                    </tbody>
+                    </tbody>)
+                    }
                 </table>
             </div>
             {!bool && (
