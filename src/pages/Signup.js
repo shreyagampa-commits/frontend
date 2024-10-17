@@ -119,7 +119,7 @@ const Signup = () => {
                   value={signupinfo.confirmPassword}
               />
           </div>
-          <button type='submit'>Signup</button>
+          <button type='submit' style={{ width: '100px', marginLeft: '10px' , marginTop: '10px', borderRadius: '14px'}}>Signup</button>
           <span>Already have an account?
               <Link to="/login" className='link'>Login</Link>
           </span>
