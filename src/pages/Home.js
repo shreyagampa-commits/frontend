@@ -1,8 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'; // Optional: for custom styling
+import { API_URL, model_URL } from '../data/apipath';
 
 function Home() {
+  useEffect(() => {
+    const activatemodel=async()=>{
+      try{
+        const status=await fetch(`${model_URL}/health`,{
+          method:'GET',
+        })
+        if(!status.ok){  
+          console.log("model is down");
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
+    const activatebacked=async()=>{
+      try{
+        const status=await fetch(`${API_URL}/`,{
+          method:'HEAD',
+        })
+        if(!status.ok){  
+          console.log("backend is down");
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
+    activatemodel();
+    activatebacked();
+  })
   return (
     <div className="home-container">
       <div className="hero-section">
