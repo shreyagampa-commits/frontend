@@ -7,8 +7,8 @@ function Home() {
   useEffect(() => {
     const activatemodel=async()=>{
       try{
-        const status=await fetch(`${model_URL}/health`,{
-          method:'GET',
+        const status=await fetch(`${model_URL}`,{
+          method:'HEAD',
         })
         if(!status.ok){  
           console.log("model is down");
@@ -19,7 +19,7 @@ function Home() {
     }
     const activatebacked=async()=>{
       try{
-        const status=await fetch(`${API_URL}/`,{
+        const status=await fetch(`${API_URL}`,{
           method:'HEAD',
         })
         if(!status.ok){  
