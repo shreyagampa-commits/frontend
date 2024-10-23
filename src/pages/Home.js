@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'; // Optional: for custom styling
 import { API_URL, model_URL } from '../data/apipath';
-
+import { useEffect } from 'react';
 function Home() {
   useEffect(() => {
     const activatemodel=async()=>{
