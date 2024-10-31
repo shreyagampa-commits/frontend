@@ -9,7 +9,7 @@ function Home() {
   useEffect(() => {
     const activatemodel=async()=>{
       try{
-        const status=await fetch(`${model_URL}/health`,{
+        const status=await fetch(`${model_URL}`,{
           method:'GET',
         })
         if(!status.ok){  
