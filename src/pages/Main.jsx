@@ -5,19 +5,27 @@ import {jwtDecode} from 'jwt-decode'; // Corrected import
 import { API_URL } from '../data/apipath';
 import './Main.css';
 
+
 const Main = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [generatedImage, setGeneratedImage] = useState(null);
+    const [canseletedFile, setCanseletedFile] = useState(null);
+    const [cangeneratedImage, setCangeneratedImage] = useState(null);
     const [user, setUser] = useState(null);
     const [givenimg, setGivenimg] = useState([]); // State for visibility
-    const [outputImages, setOutputImages] = useState([]);
-    const [isEraser, setIsEraser] = useState(false);
-    const [isDrawing, setIsDrawing] = useState(false);
+    // const [outputImages, setOutputImages] = useState([]);
+    // const [isEraser, setIsEraser] = useState(false);
+    // const [isDrawing, setIsDrawing] = useState(false);
     const [lastX, setLastX] = useState(0);
     const [lastY, setLastY] = useState(0);
-    const canvasRef = useRef(null); // Reference for the canvas
+    // const canvasRef = useRef(null); // Reference for the canvas
     const navigate = useNavigate();
-
+    const canvasRef = useRef(null);
+    const [isEraser, setIsEraser] = useState(false);
+    const [pencilSize, setPencilSize] = useState(1);
+    const [eraserSize, setEraserSize] = useState(5);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const canvasBackgroundColor = "white"; 
     useEffect(() => {
         const fetchUserData = async () => {
             const token = localStorage.getItem('logintoken');
@@ -51,8 +59,15 @@ const Main = () => {
             }
         };
         fetchUserData();
+        const canvas = canvasRef.current;
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = canvasBackgroundColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
     }, [navigate]);
-
+    
+    
     const handleLogout = () => {
         localStorage.removeItem('logintoken');
         localStorage.removeItem('user');
@@ -82,7 +97,88 @@ const Main = () => {
                 console.error('Error uploading images:', error);
             });
     };
-
+    const processCanvasImage = async () => {
+        const canvas = canvasRef.current;
+        if (!canvas) {
+            console.error('Canvas is not available');
+            return;
+        }
+    
+        const ctx = canvas.getContext('2d');
+    
+        // Create a temporary canvas to store the existing drawing
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // Copy the current drawing onto the temporary canvas
+        tempCtx.drawImage(canvas, 0, 0);
+    
+        // Set white background on the original canvas
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+        // Draw the saved image back on top of the white background
+        ctx.drawImage(tempCanvas, 0, 0);
+    
+        // Convert the updated canvas (with white background and drawing) to a Data URL
+        const dataURL = canvas.toDataURL('image/jpg');
+    
+        // Convert Data URL to Blob
+        const blob = await fetch(dataURL).then(res => res.blob());
+    
+        // Create a File from Blob
+        const file = new File([blob], 'canvasimg.jpg', { type: 'image/jpg' });
+        setCanseletedFile(file);
+    
+        // Create FormData object for image upload
+        const formData = new FormData();
+        formData.append('images', file); // Append the canvas image file
+    
+        try {
+            const response = await fetch(`${API_URL}/vendor/imgvendor/${user.employee._id}`, {
+                method: 'POST',
+                body: formData,
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error uploading images: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            console.log('Image upload response:', data);
+    
+            // Once the image is successfully uploaded, trigger prediction
+            await triggerPrediction(file);
+            
+        } catch (error) {
+            console.error('Error uploading images:', error);
+        }
+    };
+    
+    const triggerPrediction = async (file) => {
+        try {
+            const response = await fetch(`${API_URL}/vendor/predict/${user.employee._id}`, {
+                method: 'POST',
+                body: JSON.stringify({ fileName: file.name }), // Optionally, send the file name to the prediction endpoint
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error predicting file: ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            setCangeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+    
+        } catch (error) {
+            console.error('Error during prediction:', error);
+        }
+    };
+    
     const handleDrop = (e) => {
         e.preventDefault();
         const files = Array.from(e.dataTransfer.files);
@@ -145,17 +241,11 @@ const Main = () => {
             console.error('Error deleting account:', error);
         }
     };
-
-    const handleFileSelect = (e) => {
-        const files = Array.from(e.target.files);
-        setGivenimg(files.map(file => URL.createObjectURL(file)));
-    };
-
-    const clearCanvas = () => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
+    // const clearCanvas = () => {
+    //     const canvas = canvasRef.current;
+    //     const ctx = canvas.getContext('2d');
+    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // };
 
     const onUpload = async () => {
         if (!selectedFile) {
@@ -164,12 +254,12 @@ const Main = () => {
         }
 
         try {
-            const formData = new FormData();
-            formData.append('image', selectedFile);
+            // const formData = new FormData();
+            // formData.append('image', selectedFile);
 
             const response = await fetch(`${API_URL}/vendor/predict/${user.employee._id}`, {
                 method: 'POST',
-                body: formData,
+                // body: formData,
             });
 
             if (!response.ok) {
@@ -184,39 +274,64 @@ const Main = () => {
     };
 
     // Drawing functions
+    // const startDrawing = (e) => {
+    //     const canvas = canvasRef.current;
+    //     const ctx = canvas.getContext('2d');
+    //     const rect = canvas.getBoundingClientRect();
+    //     setIsDrawing(true);
+    //     setLastX(e.clientX - rect.left);
+    //     setLastY(e.clientY - rect.top);
+    //     ctx.beginPath();
+    //     ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    // };
+
+    // const draw = (e) => {
+    //     if (!isDrawing) return;
+    //     const canvas = canvasRef.current;
+    //     const ctx = canvas.getContext('2d');
+    //     const rect = canvas.getBoundingClientRect();
+    //     const x = e.clientX - rect.left;
+    //     const y = e.clientY - rect.top;
+
+    //     ctx.lineWidth = 5;
+    //     ctx.lineCap = 'round';
+    //     ctx.strokeStyle = isEraser ? 'white' : 'black';
+
+    //     ctx.lineTo(x, y);
+    //     ctx.stroke();
+    //     setLastX(x);
+    //     setLastY(y);
+    // };
+
+    // const stopDrawing = () => {
+    //     setIsDrawing(false);
+    // };
     const startDrawing = (e) => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        const rect = canvas.getBoundingClientRect();
-        setIsDrawing(true);
-        setLastX(e.clientX - rect.left);
-        setLastY(e.clientY - rect.top);
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.lineWidth = isEraser ? eraserSize : pencilSize;
+        ctx.strokeStyle = isEraser ? canvasBackgroundColor : '#000000'; // White for eraser, black for pencil
         ctx.beginPath();
-        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        setIsDrawing(true);
     };
 
     const draw = (e) => {
         if (!isDrawing) return;
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        ctx.lineWidth = 5;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = isEraser ? 'white' : 'black';
-
-        ctx.lineTo(x, y);
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
         ctx.stroke();
-        setLastX(x);
-        setLastY(y);
     };
 
     const stopDrawing = () => {
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.closePath();
         setIsDrawing(false);
     };
 
+    const clearCanvas = () => {
+        const ctx = canvasRef.current.getContext('2d');
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    };
     return (
         <div className='content'>
             <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
@@ -278,6 +393,59 @@ const Main = () => {
                         {/* Drawing Canvas */}
                         <h3 className="mt-5">Draw Your Design</h3>
                         <div className="canvas-container mt-3">
+
+                        <canvas
+                            ref={canvasRef}
+                            width={500}
+                            height={500}
+                            onMouseDown={startDrawing}
+                            onMouseMove={draw}
+                            onMouseUp={stopDrawing}
+                            onMouseLeave={stopDrawing}
+                            className="border"
+                        />
+                        <div className="mt-2">
+                            <button onClick={clearCanvas} className="btn btn-outline-danger me-2">
+                                Clear Canvas
+                            </button>
+                            <button onClick={() => setIsEraser(!isEraser)} className="btn btn-outline-secondary">
+                                {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
+                            </button>
+                        </div>
+                        <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                            <label htmlFor="pencilSize" className="form-label">Pencil Size</label>
+                            <select
+                                id="pencilSize"
+                                value={pencilSize}
+                                onChange={(e) => setPencilSize(Number(e.target.value))}
+                                className="form-select"
+                                style={{ width: '12%' }}
+                            >
+                                <option value={1}>1</option>
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                
+                            </select>
+                        </div>
+                        <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                            <label htmlFor="eraserSize" className="form-label">Eraser Size</label>
+                            <select
+                                id="eraserSize"
+                                value={eraserSize}
+                                onChange={(e) => setEraserSize(Number(e.target.value))}
+                                className="form-select"
+                                style={{ width: '12%' }}
+                            >
+                                <option value={5}>5</option>
+                                <option value={10}>10</option>
+                                <option value={20}>20</option>
+                            </select>
+                        </div>
+                        <button onClick={processCanvasImage} className="btn btn-primary mt-4">
+                            Process
+                        </button>
+                    </div>
+                        {/* <div className="canvas-container mt-3">
                             <canvas
                                 ref={canvasRef}
                                 width={500}
@@ -294,15 +462,24 @@ const Main = () => {
                                     {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
                                 </button>
                             </div>
-                        </div>
-
-                        {/* Download Generated Image */}
-                        {generatedImage && (
+                            <button onClick={processCanvasImage} className='btn btn-primary mt-4'>process</button>
+                        </div> */}
+                        {cangeneratedImage && (
+                            
+                            <div className="position-relative m-2">
+                                <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
+                                <a href={cangeneratedImage} download={cangeneratedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+                                    &#8681;
+                                </a>
+                            </div>
+                        )}
+                        {/* Download Generated Image */}    
+                        {/* {generatedImage && (
                             <div className="mt-4">
                                 <h4>Download Generated Image:</h4>
                                 <a href={generatedImage} download="generated_jewelry.png" className="btn btn-primary">Download</a>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 ) : (
                     <p>Loading user details...</p>

@@ -52,7 +52,6 @@ const Collections = () => {
         };
         fetchUserData();
     }, [navigate]);
-
     const handleDownload = async (imageUrl, imageName) => {
         try {
             const response = await fetch(imageUrl, {
