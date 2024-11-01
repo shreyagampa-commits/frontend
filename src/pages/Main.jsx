@@ -12,6 +12,9 @@ const Main = () => {
     const [canseletedFile, setCanseletedFile] = useState(null);
     const [cangeneratedImage, setCangeneratedImage] = useState(null);
     const [user, setUser] = useState(null);
+    const [geni, setgeni] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [canloading, setCanloading] = useState(false);
     const [givenimg, setGivenimg] = useState([]); // State for visibility
     // const [outputImages, setOutputImages] = useState([]);
     // const [isEraser, setIsEraser] = useState(false);
@@ -75,7 +78,7 @@ const Main = () => {
     };
 
     const imgpost = (e) => {
-
+        setgeni(false);
         const files = Array.from(e.target.files);
         setGivenimg(files.map(file => URL.createObjectURL(file)));
 
@@ -103,7 +106,7 @@ const Main = () => {
             console.error('Canvas is not available');
             return;
         }
-    
+        setCanloading(true);
         const ctx = canvas.getContext('2d');
     
         // Create a temporary canvas to store the existing drawing
@@ -173,7 +176,7 @@ const Main = () => {
     
             const data = await response.json();
             setCangeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
-    
+            setCanloading(false);
         } catch (error) {
             console.error('Error during prediction:', error);
         }
@@ -252,7 +255,8 @@ const Main = () => {
             console.error('No file selected for upload');
             return;
         }
-
+        setgeni(true);
+        setLoading(true);
         try {
             // const formData = new FormData();
             // formData.append('image', selectedFile);
@@ -268,6 +272,7 @@ const Main = () => {
 
             const data = await response.json();
             setGeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+            setLoading(false);
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -376,17 +381,15 @@ const Main = () => {
                                     </a>
                                 </div>
                             ))}
-                            {generatedImage && (
-                            
-                                <div className="position-relative m-2">
+                            {(generatedImage && geni)? (
+                                <div className="position-relative m-2" >
                                     <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
                                     <a href={generatedImage} download={generatedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
                                     </a>
                                 </div>
-                            )}
+                            ):(loading && <div class="spinner-border m-5" role="status"></div>)}
                         </div>
-
                         {/* Upload Sketch Button */}
                         <button onClick={onUpload} className='btn btn-success mt-4'>Upload Sketch</button>
 
@@ -464,7 +467,7 @@ const Main = () => {
                             </div>
                             <button onClick={processCanvasImage} className='btn btn-primary mt-4'>process</button>
                         </div> */}
-                        {cangeneratedImage && (
+                        {(cangeneratedImage)?(
                             
                             <div className="position-relative m-2">
                                 <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
@@ -472,7 +475,7 @@ const Main = () => {
                                     &#8681;
                                 </a>
                             </div>
-                        )}
+                        ):(canloading && <div class="spinner-border m-5" role="status"></div>)}
                         {/* Download Generated Image */}    
                         {/* {generatedImage && (
                             <div className="mt-4">
