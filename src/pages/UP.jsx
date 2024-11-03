@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../data/apipath';
 import {jwtDecode} from 'jwt-decode';
-
+import './UP.css';
 const UP = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -115,9 +115,41 @@ const UP = () => {
 
 
 
+  // return (
+  //   <div className="up">
+  //     <div className="upcontainer" style={{ width: "100%", backgroundColor: "black" }}>
+  //       <h1>CHANGE PASSWORD</h1>
+  //       <form onSubmit={Changepassword}>
+  //         <label htmlFor="new-password">Enter new password:</label>
+  //         <input 
+  //           type="text" 
+  //           id="new-password" 
+  //           placeholder='Enter new password'
+  //           value={newPassword} 
+  //           onChange={(e) => setNewPassword(e.target.value)} 
+  //         />
+  //         {errors.newPassword && <p style={{ color: 'red' }}>{errors.newPassword}</p>}
+  //         <br></br>
+  //         <label htmlFor="confirm-password">Enter confirm password:</label>
+  //         <input 
+  //           type="text" 
+  //           id="confirm-password"             
+  //           placeholder='Enter confirm password'
+  //           value={confirmPassword} 
+  //           onChange={(e) => setConfirmPassword(e.target.value)} 
+  //         />
+  //         {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword}</p>}
+          
+  //         <button type="submit" disabled={isLoading}>Update</button>
+  //       </form>
+  //     </div>
+  //   </div>
+  // );
+
+
   return (
-    <div className="up">
-      <div className="upcontainer" style={{ width: "100%", backgroundColor: "black" }}>
+    <div className="update-password">
+      <div className="update-password-container" style={{ width: "100%", backgroundColor: "black" }}>
         <h1>CHANGE PASSWORD</h1>
         <form onSubmit={Changepassword}>
           <label htmlFor="new-password">Enter new password:</label>
@@ -128,7 +160,7 @@ const UP = () => {
             value={newPassword} 
             onChange={(e) => setNewPassword(e.target.value)} 
           />
-          {errors.newPassword && <p style={{ color: 'red' }}>{errors.newPassword}</p>}
+          {errors.newPassword && <p className="error">{errors.newPassword}</p>}
           <br></br>
           <label htmlFor="confirm-password">Enter confirm password:</label>
           <input 
@@ -138,13 +170,16 @@ const UP = () => {
             value={confirmPassword} 
             onChange={(e) => setConfirmPassword(e.target.value)} 
           />
-          {errors.confirmPassword && <p style={{ color: 'red' }}>{errors.confirmPassword}</p>}
+          {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
           
           <button type="submit" disabled={isLoading}>Update</button>
         </form>
       </div>
     </div>
   );
+  
+
+
 }
 
 export default UP;

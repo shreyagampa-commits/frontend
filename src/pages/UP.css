@@ -1,0 +1,102 @@
+body {
+    background-color: #f0f2f5; /* Light background for contrast */
+    font-family: 'Arial', sans-serif; /* Modern font */
+    font-size: 14px;
+}
+
+.update-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+.update-password-container {
+    background: linear-gradient(135deg, #007bff, #6610f2); /* Gradient background */
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px; /* Spacing inside the container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    color: white; /* Text color */
+    width: 90%; /* Responsive width */
+    max-width: 400px; /* Max width for larger screens */
+}
+
+.update-password h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 20px; /* Decreased font size for heading */
+}
+
+.update-password label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below labels */
+    font-size: 14px; /* Font size for labels */
+}
+
+.update-password input {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below inputs */
+    outline: none; /* Remove outline on focus */
+    transition: background-color 0.3s; /* Smooth background change */
+    font-size: 14px; /* Font size for input fields */
+}
+
+.update-password input:focus {
+    background-color: #e7f1ff; /* Light background on focus */
+}
+
+.update-password button {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Padding for button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    font-size: 14px; /* Decreased font size for button */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth background change */
+}
+
+.update-password button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.update-password button:disabled {
+    background-color: #6c757d; /* Grey background when disabled */
+    cursor: not-allowed; /* Not allowed cursor */
+}
+
+.update-password .error {
+    color: #ff6b6b; /* Red color for error messages */
+    margin-bottom: 15px; /* Space below error messages */
+    font-size: 12px; /* Smaller font size for error messages */
+}
+.value{
+    display: flex;   
+}
+.box{
+    margin-top: 20px;
+}
+.container{
+    margin-top: 30px;
+    
+}
+.otpinput {
+    display: flex;
+    background-color: #f7f9fa;
+    width: 50px;
+    height: 50px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 30px;
+    margin-right: 10px;
+}
+@media screen and (min-width: 425px) {
+    .emailinput {
+        width: 300px;
+    }
+}

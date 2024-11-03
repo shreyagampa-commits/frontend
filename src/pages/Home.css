@@ -1,71 +1,90 @@
-
 .home-container {
-    text-align: center;
-    padding: 50px 20px;
-  }
-  
-  .hero-section {
-    background-color: #f3f4f6;
-    padding: 50px 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-  }
-  
+  margin-top: 2rem;
+}
+
+.hero-section {
+  background: linear-gradient(to right, #e9ecef, #f8f9fa);
+}
+
+.features-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.feature {
+  transition: transform 0.3s;
+}
+
+.feature:hover {
+  transform: scale(1.05);
+}
+
+footer {
+  padding: 20px 0;
+}
+
+/* Responsive Styles */
+
+/* For mobile devices */
+@media (max-width: 575.98px) {
   .hero-section h1 {
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 1.8rem; /* Adjust font size for smaller screens */
   }
   
   .hero-section p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 20px;
+    font-size: 1rem; /* Adjust paragraph font size */
   }
   
   .hero-buttons .btn {
-    background-color: #ff6f61;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    margin: 10px;
-    text-decoration: none;
-    font-size: 1rem;
+    width: 100%; /* Make buttons full width */
+    margin: 0.5rem 0; /* Add some vertical spacing */
   }
-  
+
   .features-section {
-    margin-top: 40px;
+    padding: 15px; /* Reduce padding for smaller screens */
   }
-  
-  .features-section h2 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .features {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-  
+
   .feature {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    margin: 10px;
+    padding: 15px; /* Adjust padding for features */
   }
-  
-  .feature h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
+}
+
+/* For tablets */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .hero-section h1 {
+    font-size: 2rem; /* Slightly larger for tablets */
   }
-  
-  .feature p {
-    font-size: 1rem;
-    color: #666;
+
+  .hero-buttons .btn {
+    width: 45%; /* Make buttons more compact */
+    margin: 0.5rem; /* Maintain vertical spacing */
   }
-  
+}
+
+/* For larger screens */
+@media (min-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.5rem; /* Adjust for larger screens */
+  }
+
+  .hero-section p {
+    font-size: 1.25rem; /* Larger paragraph font */
+  }
+
+  .feature {
+    padding: 20px; /* More padding for larger features */
+  }
+}
+
+/* Additional styling for the footer */
+footer {
+  text-align: center; /* Center the text in the footer */
+}
+
+/* Optional: If you want to add some spacing to the features section */
+@media (min-width: 992px) {
+  .features-section {
+    padding: 40px; /* More padding for larger screens */
+  }
+}

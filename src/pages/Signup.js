@@ -72,7 +72,7 @@ const Signup = () => {
     <div className='main'>
       <div className='container' style={{ width: '600px'}}>
       <Link to="/" className='link'>Home</Link>
-        <h1>Signup</h1>
+        <h1 className='heading'>Signup</h1>
         <form onSubmit={handleSignup}>
           <div className='box'>
               <label htmlFor='username'>Username:</label><br></br>

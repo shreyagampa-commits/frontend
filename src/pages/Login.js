@@ -93,52 +93,97 @@ const Login = () => {
     flow: 'auth-code',
   });
   
-  return (
-    <div className='main'>
-      <div className='container' style={{ width: '600px'}}>
-        <Link to="/" className='link'>Home</Link>
-        <h1>Login</h1>
-        <form onSubmit={handleLogin}>
-          <div className='box'>
-              <label htmlFor='email'>Email:</label><br></br>
-              <input
-                  onChange={handleChange}
-                  type='email'
-                  name='email'
-                  autoFocus
-                  placeholder='Enter your Email'
-                  value={Logininfo.Email}
-              />
-          </div>
-          <div className='box'>
-              <label htmlFor='password'>Password:</label><br></br>
-              <input
-                  onChange={handleChange}
-                  type='password'
-                  name='password'
-                  // autoFocus
-                  placeholder='Enter your password'
-                  value={Logininfo.password}
-              />
-          </div>
-          <button type='submit' style={{ width: '100px', marginLeft: '10px' , marginTop: '10px', borderRadius: '14px'}}>Login</button>
-          <span>Don't have an account?
-              <Link to="/signup" className='link'>signup</Link><br></br>
-              <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
-          </span>
+  // return (
+  //   <div className='main'>
+  //     <div className='container' style={{ width: '600px'}}>
+  //       <Link to="/" className='link'>Home</Link>
+  //       <h1>Login</h1>
+  //       <form onSubmit={handleLogin}>
+  //         <div className='box'>
+  //             <label htmlFor='email'>Email:</label><br></br>
+  //             <input
+  //                 onChange={handleChange}
+  //                 type='email'
+  //                 name='email'
+  //                 autoFocus
+  //                 placeholder='Enter your Email'
+  //                 value={Logininfo.Email}
+  //             />
+  //         </div>
+  //         <div className='box'>
+  //             <label htmlFor='password'>Password:</label><br></br>
+  //             <input
+  //                 onChange={handleChange}
+  //                 type='password'
+  //                 name='password'
+  //                 // autoFocus
+  //                 placeholder='Enter your password'
+  //                 value={Logininfo.password}
+  //             />
+  //         </div>
+  //         <button type='submit' style={{ width: '100px', marginLeft: '10px' , marginTop: '10px', borderRadius: '14px'}}>Login</button>
+  //         <span>Don't have an account?
+  //             <Link to="/signup" className='link'>signup</Link><br></br>
+  //             <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
+  //         </span>
           
+  //       </form>
+  //       {/* <ToastContainer/> */}
+  //       <hr></hr>
+  //       <div class="g-signin-button" onClick={googleLogin}>
+  //       <div class="content-wrapper">
+  //           <img class="google-logo" src="./image.png" alt='google' />
+  //           <span class="button-text">Sign in with Google</span>
+  //       </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
+
+  return (
+    <div className="main">
+      <div className="container" style={{ width: '600px' }}>
+        <Link to="/" className="link">Home</Link>
+        <h1 className="heading">Login</h1>
+        <form onSubmit={handleLogin}>
+          <div className="box">
+            <label htmlFor="email">Email:</label><br />
+            <input
+              onChange={handleChange}
+              type="email"
+              name="email"
+              autoFocus
+              placeholder="Enter your Email"
+              value={Logininfo.Email}
+            />
+          </div>
+          <div className="box">
+            <label htmlFor="password">Password:</label><br />
+            <input
+              onChange={handleChange}
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={Logininfo.password}
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+          <span>Don't have an account?
+            <Link to="/signup" className="link"> Sign Up</Link><br />
+            <Link to="/forgotpassword" className="link">Forgot Password?</Link>
+          </span>
         </form>
-        {/* <ToastContainer/> */}
-        <hr></hr>
-        <div class="g-signin-button" onClick={googleLogin}>
-        <div class="content-wrapper">
-            <img class="google-logo" src="./image.png" alt='google' />
-            <span class="button-text">Sign in with Google</span>
-        </div>
+        <hr />
+        <div className="g-signin-button" onClick={googleLogin}>
+          <div className="content-wrapper">
+            <img className="google-logo" src="./image.png" alt="google" />
+            <span className="button-text">Sign in with Google</span>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
+  
 }
 
 export default Login

@@ -40,18 +40,18 @@ const Profile = () => {
     fetchUserData();
   }, [navigate]);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh',fontSize: '30px'}}>
       <h1>PROFILE INFO</h1>
-    <div className="profile-container">
-      <h2>Welcome, {user.username}!</h2>
-      <form>
-        <label htmlFor="username">Username:</label>
-        <div id='pro'>{user.username}</div>
-        <br />
-        <label htmlFor="email">Email:</label>
-        <div id='pro'>{user.email}</div>
-      </form>
-    </div>
+      <div className="profile-container">
+        <h2>Welcome, {user.username}!</h2>
+        <form>
+          <label htmlFor="username">Username:</label>
+          <div id='pro'>{user.username}</div>
+          <br />
+          <label htmlFor="email">Email:</label>
+          <div id='pro'>{user.email}</div>
+        </form>
+      </div>
     </div>
   );
 };

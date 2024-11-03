@@ -1,252 +1,120 @@
-/* Global Styles */
 body {
-    background-color: #f0f0f5;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
-.up{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-  width: 100%;
-  font-size: 2rem;
-  padding: 20px;
-
-}
-  h1 {
-    text-align: center;
-    color: #4a47a3;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-  }
-  
-  .nav {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .nav ul li button {
-    background-color: #4a47a3;
-    border: none;
-    color: #fff;
-    padding: 12px 25px;
-    font-size: 1rem;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .nav ul li button:hover {
-    background-color: #6563c5;
-    transform: translateY(-2px);
-  }
-  
-  .content {
-    max-width: 100%;
-    margin: 20px auto;
-    padding: 30px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 12px; /* Add your jewelry image path here */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  button {
-    background-color: #4a47a3;
-    
-    color: #fff;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #6563c5;
-    transform: translateY(-2px);
-  }
-  
-  .image-container img,
-  .imgdelete img {
-    border: 2px solid #4a47a3;
-    border-radius: 12px;
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-  }
-  
-  .image-container img:hover,
-  .imgdelete img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  .deletephotos {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .deletephotos button {
-    background-color: #e74c3c;
-  }
-  
-  .deletephotos button:hover {
-    background-color: #ff6b6b;
-  }
-  .btns{
-    width: 200px;
-  }
-  /* Media Queries for Responsiveness */
-  @media (min-width: 1200px) {
-    .content {
-      max-width: 80%;
-      padding: 10px;
-    }
-    .btns{
-      padding: 1000px;
-    }
-    .nav ul {
-      gap: 15px;
-    }
-    
-    h1 {
-      font-size: 2rem;
-    }
-  }
-  .store{
-    display: flex;
-    /* margin-left: 120px; */
-  }
-  .storeimg{
-    margin-right: 120px;
-  }
-  /* .storeimg{
-    width: 200px;
-    height: 200px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    margin:20px;
-  } */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 1.75rem;
-    }
-    
-    .nav ul {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .nav ul li button {
-      width: 100%;
-      text-align: center;
-      padding: 15px;
-    }
-    
-    .image-container img,
-    .imgdelete img {
-      max-width: 150px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 1.5rem;
-    }
-    
-    .content {
-      padding: 15px;
-    }
-    
-    .nav ul li button {
-      padding: 12px;
-      font-size: 0.9rem;
-    }
-    
-    .image-container img,
-    .imgdelete img {
-      max-width: 120px;
-    }
-  }
-  
-
-
-  .content {
-    padding: 20px;
-    background-color: #f8f9fa; /* Light background for contrast */
-    min-height: 100vh;
+  background-color: #f0f2f5; /* Light background for contrast */
+  font-family: 'Arial', sans-serif; /* Modern font */
+  font-size: 14px; /* Base font size */
 }
 
-h1 {
-    color: #007bff; /* Bootstrap primary color */
-    margin-bottom: 20px;
+.content {
+  padding: 20px; /* Add padding to the main content */
 }
 
-h2 {
-    color: #343a40; /* Darker shade for headers */
-    margin-bottom: 20px;
+h1, h2 {
+  color: #007bff; /* Primary color for headings */
 }
 
-.nav {
-    margin-bottom: 20px;
+h1.text-center {
+  margin-bottom: 30px; /* Space below main heading */
 }
 
-.btns {
-    margin-right: 10px;
+h3 {
+  margin-top: 30px; /* Space above drawing heading */
 }
 
-.store {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.btn {
+  transition: background-color 0.3s, color 0.3s; /* Smooth button transition */
 }
 
-.storeimg {
-    border: 2px solid #007bff; /* Adding a blue border to images */
-    border-radius: 10px;
-    margin: 10px;
-    transition: transform 0.2s;
-}
-
-.storeimg:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
+.btn:hover {
+  opacity: 0.9; /* Slightly transparent on hover */
 }
 
 .border-dashed {
-    border: 2px dashed #007bff; /* Dashed border for the upload area */
-    border-radius: 10px;
+  border-style: dashed;
 }
 
-img {
-    object-fit: cover; /* Ensures images are scaled nicely */
-    border-radius: 10px;
+.storeimg {
+  border-radius: 8px; /* Rounded corners for images */
 }
 
-@media (max-width: 768px) {
-    .storeimg {
-        width: 100%; /* Full width on smaller screens */
-        height: auto; /* Maintain aspect ratio */
-    }
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+canvas {
+  border: 2px solid #007bff; /* Blue border around the canvas */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.spinner-border {
+  width: 3rem; /* Set size for spinner */
+  height: 3rem; /* Set size for spinner */
+}
+
+.error {
+  color: #ff6b6b; /* Red color for error messages */
+}
+
+.store {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.mb-2, .mb-4 {
+  margin-bottom: 1rem; /* Uniform margin for bottom spacing */
+}
+
+.mt-2, .mt-4 {
+  margin-top: 1rem; /* Uniform margin for top spacing */
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.p-4 {
+  padding: 1.5rem; /* Padding for container */
+}
+
+.btn-outline-primary {
+  border-color: #007bff; /* Border color for outline button */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Bootstrap danger color */
+}
+
+.btn-success {
+  background-color: #28a745; /* Bootstrap success color */
+}
+
+.btn-warning {
+  background-color: #ffc107; /* Bootstrap warning color */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Bootstrap primary color */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Bootstrap secondary color */
 }

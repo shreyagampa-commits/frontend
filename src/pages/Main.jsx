@@ -19,8 +19,8 @@ const Main = () => {
     // const [outputImages, setOutputImages] = useState([]);
     // const [isEraser, setIsEraser] = useState(false);
     // const [isDrawing, setIsDrawing] = useState(false);
-    const [lastX, setLastX] = useState(0);
-    const [lastY, setLastY] = useState(0);
+    // const [lastX, setLastX] = useState(0);
+    // const [lastY, setLastY] = useState(0);
     // const canvasRef = useRef(null); // Reference for the canvas
     const navigate = useNavigate();
     const canvasRef = useRef(null);
@@ -62,12 +62,37 @@ const Main = () => {
             }
         };
         fetchUserData();
-        const canvas = canvasRef.current;
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = canvasBackgroundColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
+        // const canvas = canvasRef.current;
+        // if (canvas) {
+        //     const ctx = canvas.getContext('2d');
+        //     ctx.fillStyle = canvasBackgroundColor;
+        //     ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // }
+        const resizeCanvas = () => {
+            const canvas = canvasRef.current;
+            if (canvas) {
+                const context = canvas.getContext('2d');
+                // Get the smaller dimension to maintain a square shape
+                const size = Math.min(canvas.clientWidth, canvas.clientHeight);
+                canvas.width = size;
+                canvas.height = size; // Set both width and height to maintain square shape
+                
+                // Clear the canvas and set the background color to white
+                context.fillStyle = 'white';
+                context.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+        
+        // Resize on window resize
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Initial resize
+        resizeCanvas();
+        
+        // Cleanup on component unmount
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+        };
     }, [navigate]);
     
     
@@ -337,17 +362,171 @@ const Main = () => {
         const ctx = canvasRef.current.getContext('2d');
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     };
+    // return (
+    //     <div className='content'>
+    //         <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
+    //         <div className="d-flex justify-content-center mb-4">
+    //             <button onClick={handleLogout} className='btn btn-danger mx-2'>Logout</button>
+    //             <button onClick={() => navigate('/up')} className='btn btn-warning mx-2'>Update Password</button>
+    //             <button onClick={delacc} className='btn btn-danger mx-2'>Delete Account</button>
+    //             <button className='btn btn-primary mx-2' onClick={() => navigate('/profile')}>Profile</button>
+    //             <button className='btn btn-secondary mx-2' onClick={() => navigate('/collections')}>Collections</button>
+    //         </div>
+
+    //         <div className="container">
+    //             <h2 className="text-center mb-4">Welcome, {user ? user.employee.username : 'User'}!</h2>
+    //             {user ? (
+    //                 <div className="text-center">
+    //                     {/* Drag and Drop Area */}
+    //                     <label
+    //                         htmlFor="fileInput"
+    //                         onDrop={handleDrop}
+    //                         onDragOver={handleDragOver}
+    //                         className="border border-dashed p-4 mb-4"
+    //                         style={{ backgroundColor: '#e9ecef', borderRadius: '10px', cursor: 'pointer' }}
+    //                     >
+    //                         <h5 className="text-center">Drag and Drop your files here or click to upload</h5>
+    //                         <input
+    //                             type="file"
+    //                             id="fileInput"
+    //                             onChange={imgpost}
+    //                             multiple
+    //                             className="form-control-file d-none"
+    //                         />
+    //                     </label>
+
+    //                     {/* Image Previews */}
+    //                     <div className="store d-flex justify-content-center flex-wrap">
+    //                         {givenimg.map((image, index) => (
+    //                             <div key={index} className="position-relative m-2">
+    //                                 <img src={image} className="storeimg img-thumbnail" height={256} width={256} alt={`Uploaded preview ${index}`} />
+    //                                 {/* Download Button */}
+    //                                 <a href={image} download={`uploaded_image_${index}.png`} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+    //                                     &#8681;
+    //                                 </a>
+    //                             </div>
+    //                         ))}
+    //                         {(generatedImage && geni)? (
+    //                             <div className="position-relative m-2" >
+    //                                 <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
+    //                                 <a href={generatedImage} download={generatedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+    //                                     &#8681;
+    //                                 </a>
+    //                             </div>
+    //                         ):(loading && <div class="spinner-border m-5" role="status"></div>)}
+    //                     </div>
+    //                     {/* Upload Sketch Button */}
+    //                     <button onClick={onUpload} className='btn btn-success mt-4'>Upload Sketch</button>
+
+    //                     {/* Drawing Canvas */}
+    //                     <h3 className="mt-5">Draw Your Design</h3>
+    //                     <div className="canvas-container mt-3">
+
+    //                     <canvas
+    //                         ref={canvasRef}
+    //                         width={500}
+    //                         height={500}
+    //                         onMouseDown={startDrawing}
+    //                         onMouseMove={draw}
+    //                         onMouseUp={stopDrawing}
+    //                         onMouseLeave={stopDrawing}
+    //                         className="border"
+    //                     />
+    //                     <div className="mt-2">
+    //                         <button onClick={clearCanvas} className="btn btn-outline-danger me-2">
+    //                             Clear Canvas
+    //                         </button>
+    //                         <button onClick={() => setIsEraser(!isEraser)} className="btn btn-outline-secondary">
+    //                             {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
+    //                         </button>
+    //                     </div>
+    //                     <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+    //                         <label htmlFor="pencilSize" className="form-label">Pencil Size</label>
+    //                         <select
+    //                             id="pencilSize"
+    //                             value={pencilSize}
+    //                             onChange={(e) => setPencilSize(Number(e.target.value))}
+    //                             className="form-select"
+    //                             style={{ width: '12%' }}
+    //                         >
+    //                             <option value={1}>1</option>
+    //                             <option value={5}>5</option>
+    //                             <option value={10}>10</option>
+                
+    //                         </select>
+    //                     </div>
+    //                     <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+    //                         <label htmlFor="eraserSize" className="form-label">Eraser Size</label>
+    //                         <select
+    //                             id="eraserSize"
+    //                             value={eraserSize}
+    //                             onChange={(e) => setEraserSize(Number(e.target.value))}
+    //                             className="form-select"
+    //                             style={{ width: '12%' }}
+    //                         >
+    //                             <option value={5}>5</option>
+    //                             <option value={10}>10</option>
+    //                             <option value={20}>20</option>
+    //                         </select>
+    //                     </div>
+    //                     <button onClick={processCanvasImage} className="btn btn-primary mt-4">
+    //                         Process
+    //                     </button>
+    //                 </div>
+    //                     {/* <div className="canvas-container mt-3">
+    //                         <canvas
+    //                             ref={canvasRef}
+    //                             width={500}
+    //                             height={500}
+    //                             onMouseDown={startDrawing}
+    //                             onMouseMove={draw}
+    //                             onMouseUp={stopDrawing}
+    //                             onMouseLeave={stopDrawing}
+    //                             className="border"
+    //                         />
+    //                         <div className="mt-2">
+    //                             <button onClick={clearCanvas} className='btn btn-outline-danger me-2'>Clear Canvas</button>
+    //                             <button onClick={() => setIsEraser(!isEraser)} className='btn btn-outline-secondary'>
+    //                                 {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
+    //                             </button>
+    //                         </div>
+    //                         <button onClick={processCanvasImage} className='btn btn-primary mt-4'>process</button>
+    //                     </div> */}
+    //                     {(cangeneratedImage)?(
+                            
+    //                         <div className="position-relative m-2">
+    //                             <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
+    //                             <a href={cangeneratedImage} download={cangeneratedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+    //                                 &#8681;
+    //                             </a>
+    //                         </div>
+    //                     ):(canloading && <div class="spinner-border m-5" role="status"></div>)}
+    //                     {/* Download Generated Image */}    
+    //                     {/* {generatedImage && (
+    //                         <div className="mt-4">
+    //                             <h4>Download Generated Image:</h4>
+    //                             <a href={generatedImage} download="generated_jewelry.png" className="btn btn-primary">Download</a>
+    //                         </div>
+    //                     )} */}
+    //                 </div>
+    //             ) : (
+    //                 <p>Loading user details...</p>
+    //             )}
+    //         </div>
+    //     </div>
+    // );
+    
     return (
         <div className='content'>
             <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
-            <div className="d-flex justify-content-center mb-4">
-                <button onClick={handleLogout} className='btn btn-danger mx-2'>Logout</button>
-                <button onClick={() => navigate('/up')} className='btn btn-warning mx-2'>Update Password</button>
-                <button onClick={delacc} className='btn btn-danger mx-2'>Delete Account</button>
-                <button className='btn btn-primary mx-2' onClick={() => navigate('/profile')}>Profile</button>
-                <button className='btn btn-secondary mx-2' onClick={() => navigate('/collections')}>Collections</button>
+            <div className="d-flex flex-wrap justify-content-center mb-4">
+                <button onClick={handleLogout} className='btn btn-danger mx-2 mb-2'>Logout</button>
+                <button onClick={() => navigate('/up')} className='btn btn-warning mx-2 mb-2'>Update Password</button>
+                <button onClick={delacc} className='btn btn-danger mx-2 mb-2'>Delete Account</button>
+                <button className='btn btn-primary mx-2 mb-2' onClick={() => navigate('/profile')}>Profile</button>
+                <button className='btn btn-secondary mx-2 mb-2' onClick={() => navigate('/collections')}>Collections</button>
             </div>
-
+    
             <div className="container">
                 <h2 className="text-center mb-4">Welcome, {user ? user.employee.username : 'User'}!</h2>
                 {user ? (
@@ -369,7 +548,7 @@ const Main = () => {
                                 className="form-control-file d-none"
                             />
                         </label>
-
+    
                         {/* Image Previews */}
                         <div className="store d-flex justify-content-center flex-wrap">
                             {givenimg.map((image, index) => (
@@ -381,74 +560,21 @@ const Main = () => {
                                     </a>
                                 </div>
                             ))}
-                            {(generatedImage && geni)? (
-                                <div className="position-relative m-2" >
+                            {(generatedImage && geni) ? (
+                                <div className="position-relative m-2">
                                     <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
                                     <a href={generatedImage} download={generatedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
                                     </a>
                                 </div>
-                            ):(loading && <div class="spinner-border m-5" role="status"></div>)}
+                            ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
                         </div>
                         {/* Upload Sketch Button */}
                         <button onClick={onUpload} className='btn btn-success mt-4'>Upload Sketch</button>
-
+    
                         {/* Drawing Canvas */}
                         <h3 className="mt-5">Draw Your Design</h3>
-                        <div className="canvas-container mt-3">
-
-                        <canvas
-                            ref={canvasRef}
-                            width={500}
-                            height={500}
-                            onMouseDown={startDrawing}
-                            onMouseMove={draw}
-                            onMouseUp={stopDrawing}
-                            onMouseLeave={stopDrawing}
-                            className="border"
-                        />
-                        <div className="mt-2">
-                            <button onClick={clearCanvas} className="btn btn-outline-danger me-2">
-                                Clear Canvas
-                            </button>
-                            <button onClick={() => setIsEraser(!isEraser)} className="btn btn-outline-secondary">
-                                {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
-                            </button>
-                        </div>
-                        <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
-                            <label htmlFor="pencilSize" className="form-label">Pencil Size</label>
-                            <select
-                                id="pencilSize"
-                                value={pencilSize}
-                                onChange={(e) => setPencilSize(Number(e.target.value))}
-                                className="form-select"
-                                style={{ width: '12%' }}
-                            >
-                                <option value={1}>1</option>
-                                <option value={5}>5</option>
-                                <option value={10}>10</option>
-                
-                            </select>
-                        </div>
-                        <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
-                            <label htmlFor="eraserSize" className="form-label">Eraser Size</label>
-                            <select
-                                id="eraserSize"
-                                value={eraserSize}
-                                onChange={(e) => setEraserSize(Number(e.target.value))}
-                                className="form-select"
-                                style={{ width: '12%' }}
-                            >
-                                <option value={5}>5</option>
-                                <option value={10}>10</option>
-                                <option value={20}>20</option>
-                            </select>
-                        </div>
-                        <button onClick={processCanvasImage} className="btn btn-primary mt-4">
-                            Process
-                        </button>
-                    </div>
-                        {/* <div className="canvas-container mt-3">
+                        <div className="canvas-container mt-3 d-flex flex-column align-items-center">
                             <canvas
                                 ref={canvasRef}
                                 width={500}
@@ -458,31 +584,55 @@ const Main = () => {
                                 onMouseUp={stopDrawing}
                                 onMouseLeave={stopDrawing}
                                 className="border"
+                                style={{ width: '100%', maxWidth: '500px', height: 'auto' }} // Responsive square size
                             />
-                            <div className="mt-2">
-                                <button onClick={clearCanvas} className='btn btn-outline-danger me-2'>Clear Canvas</button>
-                                <button onClick={() => setIsEraser(!isEraser)} className='btn btn-outline-secondary'>
+                            <div className="d-flex flex-wrap justify-content-center mt-2">
+                                <button onClick={clearCanvas} className="btn btn-outline-danger me-2 mb-2">Clear Canvas</button>
+                                <button onClick={() => setIsEraser(!isEraser)} className="btn btn-outline-secondary mb-2">
                                     {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
                                 </button>
                             </div>
-                            <button onClick={processCanvasImage} className='btn btn-primary mt-4'>process</button>
-                        </div> */}
-                        {(cangeneratedImage)?(
-                            
+                            <div className="d-flex flex-wrap justify-content-center mb-2">
+                                <label htmlFor="pencilSize" className="form-label me-2">Pencil Size</label>
+                                <select
+                                    id="pencilSize"
+                                    value={pencilSize}
+                                    onChange={(e) => setPencilSize(Number(e.target.value))}
+                                    className="form-select"
+                                    style={{ width: '100px' }}
+                                >
+                                    <option value={1}>1</option>
+                                    <option value={5}>5</option>
+                                    <option value={10}>10</option>
+                                </select>
+                            </div>
+                            <div className="d-flex flex-wrap justify-content-center mb-2">
+                                <label htmlFor="eraserSize" className="form-label me-2">Eraser Size</label>
+                                <select
+                                    id="eraserSize"
+                                    value={eraserSize}
+                                    onChange={(e) => setEraserSize(Number(e.target.value))}
+                                    className="form-select"
+                                    style={{ width: '100px' }}
+                                >
+                                    <option value={5}>5</option>
+                                    <option value={10}>10</option>
+                                    <option value={20}>20</option>
+                                </select>
+                            </div>
+                            <button onClick={processCanvasImage} className="btn btn-primary mt-4">
+                                Process
+                            </button>
+                        </div>
+    
+                        {(cangeneratedImage) ? (
                             <div className="position-relative m-2">
                                 <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
                                 <a href={cangeneratedImage} download={cangeneratedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                     &#8681;
                                 </a>
                             </div>
-                        ):(canloading && <div class="spinner-border m-5" role="status"></div>)}
-                        {/* Download Generated Image */}    
-                        {/* {generatedImage && (
-                            <div className="mt-4">
-                                <h4>Download Generated Image:</h4>
-                                <a href={generatedImage} download="generated_jewelry.png" className="btn btn-primary">Download</a>
-                            </div>
-                        )} */}
+                        ) : (canloading && <div className="spinner-border m-5" role="status"></div>)}
                     </div>
                 ) : (
                     <p>Loading user details...</p>
@@ -490,6 +640,7 @@ const Main = () => {
             </div>
         </div>
     );
+    
 };
 
 export default Main;

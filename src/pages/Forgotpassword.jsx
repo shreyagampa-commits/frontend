@@ -194,12 +194,12 @@ const Forgotpassword = () => {
   };
       
   return (
-    <div>
+    <div className='container'>
       <h1>Forgot Password</h1>
       <form onSubmit={handleLogin}>
         <div className='box'>
           <label htmlFor='email'>Email:</label><br />
-          <input
+          <input style={{border: '1px solid blue'}}
             onChange={handleChange}
             type='email'
             name='email'
@@ -214,19 +214,21 @@ const Forgotpassword = () => {
         {otpSent && (
           <div className='box'>
             <label htmlFor='otp'>OTP:</label><br />
-            {otp.map((value, index) => (
-              <input
-                key={index}
-                ref={(input) => (inputref.current[index] = input)}
-                onChange={(e) => hc(index, e)}
-                onClick={() => hclick(index)}
-                onKeyDown={(e) => hkey(index, e)}
-                type='text'
-                className='otpinput'
-                value={value}
-                required
-              />
-            ))}
+            <div className="value">
+              {otp.map((value, index) => (
+                <input
+                  key={index}
+                  ref={(input) => (inputref.current[index] = input)}
+                  onChange={(e) => hc(index, e)}
+                  onClick={() => hclick(index)}
+                  onKeyDown={(e) => hkey(index, e)}
+                  type='text'
+                  className='otpinput'
+                  value={value}
+                  required
+                />
+              ))}
+            </div>
           </div>
         )}
         <br />

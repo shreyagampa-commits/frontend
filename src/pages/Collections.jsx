@@ -142,11 +142,86 @@ const Collections = () => {
         }
     };
     
+    // return (
+    //     <div>
+    //         <h1>{user?.employee?.username}'s Jewelry Collections</h1>
+    //         <div className="table">
+    //             <table border="2" cellSpacing="0" cellPadding="5" width={"100%"}>
+    //                 <thead>
+    //                     <tr>
+    //                         <th>S No</th>
+    //                         <th>Sketched Image</th>
+    //                         <th>Colored Image</th>
+    //                         <th>Download Image</th>
+    //                         <th>Delete Image</th>
+    //                     </tr>
+    //                 </thead>
+    //                 {
+    //                     (user?.employee?.images.length === 0)? (<h2>No images uploaded yet</h2>):
+    //                 (<tbody>
+    //                     {Array.isArray(user?.employee?.images) &&
+    //                         user.employee.images.map((image, index) => (
+    //                             <tr key={index}>
+    //                                 <td style={{ fontSize: '40px' }}>{index + 1}</td>
+    //                                 <td>
+    //                                     <img
+    //                                         src={`${API_URL}/uploads/${image}`}
+    //                                         alt="sketch"
+    //                                         width="256"
+    //                                     />
+    //                                 </td>
+    //                                 <td>
+    //                                     <img
+    //                                         src={`${API_URL}/output/${image}`}
+    //                                         alt="colored"
+    //                                         width="256"
+    //                                     />
+    //                                 </td>
+    //                                 <td>
+    //                                     <button
+    //                                         type="button"
+    //                                         onClick={() =>
+    //                                             handleDownload(
+    //                                                 `${API_URL}/output/${image}`,
+    //                                                 image.split('-')[1]
+    //                                             )
+    //                                         }
+    //                                     >
+    //                                         Download
+    //                                     </button>
+    //                                 </td>
+    //                                 <td>
+    //                                     <button
+    //                                         type="button"
+    //                                         className="delete-button"
+    //                                         onClick={() => handleDeleteImage(image)}
+    //                                     >
+    //                                         Delete
+    //                                     </button>
+    //                                 </td>
+    //                             </tr>
+    //                         ))}
+    //                 </tbody>)
+    //                 }
+    //             </table>
+    //         </div>
+    //         {!bool && (
+    //             <button
+    //                 onClick={handleDeleteAllImages}
+    //                 className="delete-all-button"
+    //                 style={{ marginLeft: '110px', width: '200px', height: '40px', backgroundColor: 'red' }}
+    //             >
+    //                 Delete All Images
+    //             </button>
+    //         )}
+    //     </div>
+    // );
+
     return (
         <div>
             <h1>{user?.employee?.username}'s Jewelry Collections</h1>
-            <div className="table">
-                <table border="2" cellSpacing="0" cellPadding="5" width={"100%"}>
+            <div className="table-container">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>S No</th>
@@ -156,66 +231,74 @@ const Collections = () => {
                             <th>Delete Image</th>
                         </tr>
                     </thead>
-                    {
-                        (user?.employee?.images.length === 0)? (<h2>No images uploaded yet</h2>):
-                    (<tbody>
-                        {Array.isArray(user?.employee?.images) &&
-                            user.employee.images.map((image, index) => (
-                                <tr key={index}>
-                                    <td style={{ fontSize: '40px' }}>{index + 1}</td>
-                                    <td>
-                                        <img
-                                            src={`${API_URL}/uploads/${image}`}
-                                            alt="sketch"
-                                            width="256"
-                                        />
-                                    </td>
-                                    <td>
-                                        <img
-                                            src={`${API_URL}/output/${image}`}
-                                            alt="colored"
-                                            width="256"
-                                        />
-                                    </td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                handleDownload(
-                                                    `${API_URL}/output/${image}`,
-                                                    image.split('-')[1]
-                                                )
-                                            }
-                                        >
-                                            Download
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            className="delete-button"
-                                            onClick={() => handleDeleteImage(image)}
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                    </tbody>)
-                    }
+                    {(user?.employee?.images.length === 0) ? (
+                        <tbody>
+                            <tr>
+                                <td colSpan="5" style={{ textAlign: 'center' }}>
+                                    <h2>No images uploaded yet</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    ) : (
+                        <tbody>
+                            {Array.isArray(user?.employee?.images) &&
+                                user.employee.images.map((image, index) => (
+                                    <tr key={index}>
+                                        <td style={{ fontSize: '20px' }}>{index + 1}</td>
+                                        <td>
+                                            <img
+                                                src={`${API_URL}/uploads/${image}`}
+                                                alt="sketch"
+                                                width="256"
+                                            />
+                                        </td>
+                                        <td>
+                                            <img
+                                                src={`${API_URL}/output/${image}`}
+                                                alt="colored"
+                                                width="256"
+                                            />
+                                        </td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    handleDownload(
+                                                        `${API_URL}/output/${image}`,
+                                                        image.split('-')[1]
+                                                    )
+                                                }
+                                            >
+                                                Download
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button
+                                                type="button"
+                                                className="delete-button"
+                                                onClick={() => handleDeleteImage(image)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    )}
                 </table>
             </div>
             {!bool && (
                 <button
                     onClick={handleDeleteAllImages}
                     className="delete-all-button"
-                    style={{ marginLeft: '110px', width: '200px', height: '40px', backgroundColor: 'red' }}
                 >
                     Delete All Images
                 </button>
             )}
         </div>
     );
+    
+
 };
 
 export default Collections;
