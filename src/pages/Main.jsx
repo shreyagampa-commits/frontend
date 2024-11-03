@@ -1,10 +1,9 @@
-// src/pages/Main.jsx
+
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'; // Corrected import
 import { API_URL } from '../data/apipath';
 import './Main.css';
-
 
 const Main = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -15,13 +14,9 @@ const Main = () => {
     const [geni, setgeni] = useState(false);
     const [loading, setLoading] = useState(false);
     const [canloading, setCanloading] = useState(false);
-    const [givenimg, setGivenimg] = useState([]); // State for visibility
-    // const [outputImages, setOutputImages] = useState([]);
-    // const [isEraser, setIsEraser] = useState(false);
-    // const [isDrawing, setIsDrawing] = useState(false);
-    // const [lastX, setLastX] = useState(0);
-    // const [lastY, setLastY] = useState(0);
-    // const canvasRef = useRef(null); // Reference for the canvas
+    const [givenimg, setGivenimg] = useState([]);
+    const [lastX,setLastX] = useState(0);
+    const [lastY, setLastY] = useState(0);
     const navigate = useNavigate();
     const canvasRef = useRef(null);
     const [isEraser, setIsEraser] = useState(false);
@@ -81,6 +76,7 @@ const Main = () => {
                 context.fillStyle = 'white';
                 context.fillRect(0, 0, canvas.width, canvas.height);
             }
+            
         };
         
         // Resize on window resize
@@ -269,12 +265,6 @@ const Main = () => {
             console.error('Error deleting account:', error);
         }
     };
-    // const clearCanvas = () => {
-    //     const canvas = canvasRef.current;
-    //     const ctx = canvas.getContext('2d');
-    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // };
-
     const onUpload = async () => {
         if (!selectedFile) {
             console.error('No file selected for upload');
@@ -302,40 +292,6 @@ const Main = () => {
             console.error('Error uploading file:', error);
         }
     };
-
-    // Drawing functions
-    // const startDrawing = (e) => {
-    //     const canvas = canvasRef.current;
-    //     const ctx = canvas.getContext('2d');
-    //     const rect = canvas.getBoundingClientRect();
-    //     setIsDrawing(true);
-    //     setLastX(e.clientX - rect.left);
-    //     setLastY(e.clientY - rect.top);
-    //     ctx.beginPath();
-    //     ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-    // };
-
-    // const draw = (e) => {
-    //     if (!isDrawing) return;
-    //     const canvas = canvasRef.current;
-    //     const ctx = canvas.getContext('2d');
-    //     const rect = canvas.getBoundingClientRect();
-    //     const x = e.clientX - rect.left;
-    //     const y = e.clientY - rect.top;
-
-    //     ctx.lineWidth = 5;
-    //     ctx.lineCap = 'round';
-    //     ctx.strokeStyle = isEraser ? 'white' : 'black';
-
-    //     ctx.lineTo(x, y);
-    //     ctx.stroke();
-    //     setLastX(x);
-    //     setLastY(y);
-    // };
-
-    // const stopDrawing = () => {
-    //     setIsDrawing(false);
-    // };
     const startDrawing = (e) => {
         const ctx = canvasRef.current.getContext('2d');
         ctx.lineWidth = isEraser ? eraserSize : pencilSize;
@@ -348,9 +304,25 @@ const Main = () => {
     const draw = (e) => {
         if (!isDrawing) return;
         const ctx = canvasRef.current.getContext('2d');
-        ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+        
+        // Get the correct position based on the event type
+        let offsetX, offsetY;
+        if (e.nativeEvent.touches) {
+            // Handle touch event
+            const touch = e.nativeEvent.touches[0];
+            const rect = canvasRef.current.getBoundingClientRect();
+            offsetX = touch.clientX - rect.left; // Adjust for canvas position
+            offsetY = touch.clientY - rect.top;  // Adjust for canvas position
+        } else {
+            // Handle mouse event
+            offsetX = e.nativeEvent.offsetX;
+            offsetY = e.nativeEvent.offsetY;
+        }
+    
+        ctx.lineTo(offsetX, offsetY);
         ctx.stroke();
     };
+    
 
     const stopDrawing = () => {
         const ctx = canvasRef.current.getContext('2d');
@@ -362,160 +334,34 @@ const Main = () => {
         const ctx = canvasRef.current.getContext('2d');
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     };
-    // return (
-    //     <div className='content'>
-    //         <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
-    //         <div className="d-flex justify-content-center mb-4">
-    //             <button onClick={handleLogout} className='btn btn-danger mx-2'>Logout</button>
-    //             <button onClick={() => navigate('/up')} className='btn btn-warning mx-2'>Update Password</button>
-    //             <button onClick={delacc} className='btn btn-danger mx-2'>Delete Account</button>
-    //             <button className='btn btn-primary mx-2' onClick={() => navigate('/profile')}>Profile</button>
-    //             <button className='btn btn-secondary mx-2' onClick={() => navigate('/collections')}>Collections</button>
-    //         </div>
-
-    //         <div className="container">
-    //             <h2 className="text-center mb-4">Welcome, {user ? user.employee.username : 'User'}!</h2>
-    //             {user ? (
-    //                 <div className="text-center">
-    //                     {/* Drag and Drop Area */}
-    //                     <label
-    //                         htmlFor="fileInput"
-    //                         onDrop={handleDrop}
-    //                         onDragOver={handleDragOver}
-    //                         className="border border-dashed p-4 mb-4"
-    //                         style={{ backgroundColor: '#e9ecef', borderRadius: '10px', cursor: 'pointer' }}
-    //                     >
-    //                         <h5 className="text-center">Drag and Drop your files here or click to upload</h5>
-    //                         <input
-    //                             type="file"
-    //                             id="fileInput"
-    //                             onChange={imgpost}
-    //                             multiple
-    //                             className="form-control-file d-none"
-    //                         />
-    //                     </label>
-
-    //                     {/* Image Previews */}
-    //                     <div className="store d-flex justify-content-center flex-wrap">
-    //                         {givenimg.map((image, index) => (
-    //                             <div key={index} className="position-relative m-2">
-    //                                 <img src={image} className="storeimg img-thumbnail" height={256} width={256} alt={`Uploaded preview ${index}`} />
-    //                                 {/* Download Button */}
-    //                                 <a href={image} download={`uploaded_image_${index}.png`} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
-    //                                     &#8681;
-    //                                 </a>
-    //                             </div>
-    //                         ))}
-    //                         {(generatedImage && geni)? (
-    //                             <div className="position-relative m-2" >
-    //                                 <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
-    //                                 <a href={generatedImage} download={generatedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
-    //                                     &#8681;
-    //                                 </a>
-    //                             </div>
-    //                         ):(loading && <div class="spinner-border m-5" role="status"></div>)}
-    //                     </div>
-    //                     {/* Upload Sketch Button */}
-    //                     <button onClick={onUpload} className='btn btn-success mt-4'>Upload Sketch</button>
-
-    //                     {/* Drawing Canvas */}
-    //                     <h3 className="mt-5">Draw Your Design</h3>
-    //                     <div className="canvas-container mt-3">
-
-    //                     <canvas
-    //                         ref={canvasRef}
-    //                         width={500}
-    //                         height={500}
-    //                         onMouseDown={startDrawing}
-    //                         onMouseMove={draw}
-    //                         onMouseUp={stopDrawing}
-    //                         onMouseLeave={stopDrawing}
-    //                         className="border"
-    //                     />
-    //                     <div className="mt-2">
-    //                         <button onClick={clearCanvas} className="btn btn-outline-danger me-2">
-    //                             Clear Canvas
-    //                         </button>
-    //                         <button onClick={() => setIsEraser(!isEraser)} className="btn btn-outline-secondary">
-    //                             {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
-    //                         </button>
-    //                     </div>
-    //                     <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
-    //                         <label htmlFor="pencilSize" className="form-label">Pencil Size</label>
-    //                         <select
-    //                             id="pencilSize"
-    //                             value={pencilSize}
-    //                             onChange={(e) => setPencilSize(Number(e.target.value))}
-    //                             className="form-select"
-    //                             style={{ width: '12%' }}
-    //                         >
-    //                             <option value={1}>1</option>
-    //                             <option value={5}>5</option>
-    //                             <option value={10}>10</option>
-                
-    //                         </select>
-    //                     </div>
-    //                     <div className="mt-2" style={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
-    //                         <label htmlFor="eraserSize" className="form-label">Eraser Size</label>
-    //                         <select
-    //                             id="eraserSize"
-    //                             value={eraserSize}
-    //                             onChange={(e) => setEraserSize(Number(e.target.value))}
-    //                             className="form-select"
-    //                             style={{ width: '12%' }}
-    //                         >
-    //                             <option value={5}>5</option>
-    //                             <option value={10}>10</option>
-    //                             <option value={20}>20</option>
-    //                         </select>
-    //                     </div>
-    //                     <button onClick={processCanvasImage} className="btn btn-primary mt-4">
-    //                         Process
-    //                     </button>
-    //                 </div>
-    //                     {/* <div className="canvas-container mt-3">
-    //                         <canvas
-    //                             ref={canvasRef}
-    //                             width={500}
-    //                             height={500}
-    //                             onMouseDown={startDrawing}
-    //                             onMouseMove={draw}
-    //                             onMouseUp={stopDrawing}
-    //                             onMouseLeave={stopDrawing}
-    //                             className="border"
-    //                         />
-    //                         <div className="mt-2">
-    //                             <button onClick={clearCanvas} className='btn btn-outline-danger me-2'>Clear Canvas</button>
-    //                             <button onClick={() => setIsEraser(!isEraser)} className='btn btn-outline-secondary'>
-    //                                 {isEraser ? 'Switch to Pencil' : 'Switch to Eraser'}
-    //                             </button>
-    //                         </div>
-    //                         <button onClick={processCanvasImage} className='btn btn-primary mt-4'>process</button>
-    //                     </div> */}
-    //                     {(cangeneratedImage)?(
-                            
-    //                         <div className="position-relative m-2">
-    //                             <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
-    //                             <a href={cangeneratedImage} download={cangeneratedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
-    //                                 &#8681;
-    //                             </a>
-    //                         </div>
-    //                     ):(canloading && <div class="spinner-border m-5" role="status"></div>)}
-    //                     {/* Download Generated Image */}    
-    //                     {/* {generatedImage && (
-    //                         <div className="mt-4">
-    //                             <h4>Download Generated Image:</h4>
-    //                             <a href={generatedImage} download="generated_jewelry.png" className="btn btn-primary">Download</a>
-    //                         </div>
-    //                     )} */}
-    //                 </div>
-    //             ) : (
-    //                 <p>Loading user details...</p>
-    //             )}
-    //         </div>
-    //     </div>
-    // );
+    const handleTouchStart = (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        setIsDrawing(true);
+        const touch = e.touches[0];
+        const rect = canvasRef.current.getBoundingClientRect();
+        setLastX(touch.clientX - rect.left);
+        setLastY(touch.clientY - rect.top);
+    };
     
+    const handleTouchMove = (e) => {
+        draw(e); // Call the draw function here
+    };
+    
+    const handleTouchEnd = () => {
+        setIsDrawing(false);
+    };
+    // const handleMouseDown = (e) => {
+    //     setIsDrawing(true);
+    //     const rect = canvasRef.current.getBoundingClientRect();
+    //     setLastX(e.clientX - rect.left);
+    //     setLastY(e.clientY - rect.top);
+    // };
+    // const handleMouseMove = (e) => {
+    //     draw(e); // Call the draw function here
+    // };
+    // const handleMouseUp = () => {
+    //     setIsDrawing(false);
+    // };
     return (
         <div className='content'>
             <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
@@ -582,6 +428,9 @@ const Main = () => {
                                 onMouseDown={startDrawing}
                                 onMouseMove={draw}
                                 onMouseUp={stopDrawing}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
                                 onMouseLeave={stopDrawing}
                                 className="border"
                                 style={{ width: '100%', maxWidth: '500px', height: 'auto' }} // Responsive square size
@@ -640,7 +489,6 @@ const Main = () => {
             </div>
         </div>
     );
-    
 };
 
 export default Main;
