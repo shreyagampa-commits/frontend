@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.bcf7da42.css",
-    "main.js": "/static/js/main.9c435bdd.js",
+    "main.css": "/static/css/main.72ea671b.css",
+    "main.js": "/static/js/main.d3cda23f.js",
     "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
+    "static/media/Sakina_Z_IMG12157_FIV.jpg": "/static/media/Sakina_Z_IMG12157_FIV.151cfaf9528594eea4ed.jpg",
+    "static/media/best_jewellery_photographer_mumbai-2.jpg": "/static/media/best_jewellery_photographer_mumbai-2.5828d9be233d677833cc.jpg",
+    "static/media/women.jpg": "/static/media/women.ec0df228f6da2704d074.jpg",
+    "static/media/contactbg.jpg": "/static/media/contactbg.3960da4d3cb153f61456.jpg",
+    "static/media/whitebg.jpg": "/static/media/whitebg.770bdc7119162de0ca0b.jpg",
+    "static/media/profile.jpg": "/static/media/profile.0bfb883dddf5359d22bd.jpg",
+    "static/media/sendme.avif": "/static/media/sendme.027b2eaf81e26f343f56.avif",
     "index.html": "/index.html",
-    "main.bcf7da42.css.map": "/static/css/main.bcf7da42.css.map",
-    "main.9c435bdd.js.map": "/static/js/main.9c435bdd.js.map",
+    "main.72ea671b.css.map": "/static/css/main.72ea671b.css.map",
+    "main.d3cda23f.js.map": "/static/js/main.d3cda23f.js.map",
     "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bcf7da42.css",
-    "static/js/main.9c435bdd.js"
+    "static/css/main.72ea671b.css",
+    "static/js/main.d3cda23f.js"
   ]
 }

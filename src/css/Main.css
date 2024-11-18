@@ -1,0 +1,175 @@
+body {
+  /* overflow: hidden; Prevent scrolling */
+  background-color: #f0f2f5; /* Light background for contrast */
+  font-family: 'Arial', sans-serif; /* Modern font */
+  font-size: 14px; /* Base font size */
+}
+.content::before {
+  /* padding: 20px; */
+  content: '';
+  background: url('../img/Sakina_Z_IMG12157_FIV.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  filter: brightness(0.5);
+  z-index: -1;
+}
+h1, h2 {
+  color: #007bff; /* Primary color for headings */
+}
+.nav{
+  position: relative;
+}
+h1.text-center {
+  margin-bottom: 30px; /* Space below main heading */
+}
+
+.navitems {
+    /* display: 'block'; */
+    position: relative;
+    right: 40px;
+}
+.notnavitems {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 40px;
+    top:60px;
+    width: 200px;
+    height: 150px;
+    border-radius: 30px;
+    backdrop-filter: blur(100px);
+}
+h3 {
+  margin-top: 30px; /* Space above drawing heading */
+}
+
+.btn {
+  transition: background-color 0.3s, color 0.3s; /* Smooth button transition */
+}
+
+.btn:hover {
+  opacity: 0.9; /* Slightly transparent on hover */
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.storeimg {
+  border-radius: 8px; /* Rounded corners for images */
+}
+
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+canvas {
+  border: 2px solid #007bff; /* Blue border around the canvas */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.spinner-border {
+  width: 3rem; /* Set size for spinner */
+  height: 3rem; /* Set size for spinner */
+}
+
+.error {
+  color: #ff6b6b; /* Red color for error messages */
+}
+
+.store {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.mb-2, .mb-4 {
+  margin-bottom: 1rem; /* Uniform margin for bottom spacing */
+}
+
+.mt-2, .mt-4 {
+  margin-top: 1rem; /* Uniform margin for top spacing */
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.p-4 {
+  padding: 1.5rem; /* Padding for container */
+}
+
+.btn-outline-primary {
+  border-color: #007bff; /* Border color for outline button */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Bootstrap danger color */
+}
+
+.btn-success {
+  background-color: #28a745; /* Bootstrap success color */
+}
+
+.btn-warning {
+  background-color: #ffc107; /* Bootstrap warning color */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Bootstrap primary color */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Bootstrap secondary color */
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+}
+
+.footer p {
+  font-family: "Cormorant", serif;
+  color: rgb(158, 158, 158);
+  margin: 1.2vh;
+}
+
+.copyright,
+.mail {
+  font-weight: 700;
+}
+
+.socialmedia {
+  font-size: large;
+}

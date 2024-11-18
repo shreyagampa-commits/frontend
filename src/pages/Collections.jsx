@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../data/apipath';
 import { jwtDecode } from 'jwt-decode'; // Correct import
 import { useEffect, useState } from 'react';
-import './Collections.css'; // Import the CSS
+import '../css/Collections.css';
 
 const Collections = () => {
     const [user, setUser] = useState(null);
@@ -219,7 +219,7 @@ const Collections = () => {
 
     return (
         <div>
-            <h1>{user?.employee?.username}'s Jewelry Collections</h1>
+            <h1 className='ch'>{user?.employee?.username}'s Jewelry Collections</h1>
             <div className="table-container">
                 <table className="table">
                     <thead>

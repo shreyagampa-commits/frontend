@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../data/apipath';
 import {jwtDecode} from 'jwt-decode';
-import './UP.css';
+import '../css/UP.css';
 const UP = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);

@@ -1,0 +1,50 @@
+.conten::before{
+    padding: 20px;
+    content: '';
+    background: url('../img/whitebg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    filter: brightness(1);
+    z-index: -1;
+}
+/* .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;    
+} */
+
+.navitems {
+    /* display: 'block'; */
+    position: fixed;
+    right: 40px;
+}
+.notnavitems {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    right: 40px;
+    top:60px;
+    width: 200px;
+    height: 150px;
+    border-radius: 30px;
+    backdrop-filter: blur(100px);
+}
+.conten{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.profile-container{
+    margin-bottom: 50px;
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../data/apipath';
 import {jwtDecode} from 'jwt-decode';
-
+import '../css/Profile.css';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -39,8 +39,43 @@ const Profile = () => {
     };
     fetchUserData();
   }, [navigate]);
+  const delacc = async () => {
+    const id=jwtDecode(localStorage.getItem('logintoken')).vendorid;
+    if (!id) {
+        console.error('User data is not loaded yet');
+        return;
+    }
+
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/vendor/deletevendor/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('logintoken')}`,
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Account deletion response:', data);
+
+        // After account deletion, log the user out and navigate to the login page
+        localStorage.removeItem('logintoken');
+        navigate('/login');
+    } catch (error) {
+        console.error('Error deleting account:', error);
+    }
+  };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh',fontSize: '30px'}}>
+    <div className='conten'>
       <h1>PROFILE INFO</h1>
       <div className="profile-container">
         <h2>Welcome, {user.username}!</h2>
@@ -52,6 +87,8 @@ const Profile = () => {
           <div id='pro'>{user.email}</div>
         </form>
       </div>
+      <button onClick={() => navigate('/up')} className='btn btn-warning mx-2 mb-2'>Update Password</button>
+      <button onClick={delacc} className='btn btn-danger mx-2 mb-2'>Delete Account</button>
     </div>
   );
 };

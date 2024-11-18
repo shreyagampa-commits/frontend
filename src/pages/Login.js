@@ -3,13 +3,14 @@ import { Link , useNavigate} from 'react-router-dom'
 // import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useState } from 'react'
-import './Login.css'
+import '../css/Login.css'
 import { API_URL } from '../data/apipath'
 import {useGoogleLogin } from '@react-oauth/google';
 // import { googleAuth } from '../data/api'
 // import { handleError, handleSuccess } from '../utils'
 const Login = () => {
   const navigate=useNavigate();
+  const [navOpen, setNavOpen] = useState(false);
   const [Logininfo, setLoginInfo] = useState({
     email: '',
     password: ''
@@ -92,61 +93,40 @@ const Login = () => {
     onError: responseGoogle,
     flow: 'auth-code',
   });
-  
-  // return (
-  //   <div className='main'>
-  //     <div className='container' style={{ width: '600px'}}>
-  //       <Link to="/" className='link'>Home</Link>
-  //       <h1>Login</h1>
-  //       <form onSubmit={handleLogin}>
-  //         <div className='box'>
-  //             <label htmlFor='email'>Email:</label><br></br>
-  //             <input
-  //                 onChange={handleChange}
-  //                 type='email'
-  //                 name='email'
-  //                 autoFocus
-  //                 placeholder='Enter your Email'
-  //                 value={Logininfo.Email}
-  //             />
-  //         </div>
-  //         <div className='box'>
-  //             <label htmlFor='password'>Password:</label><br></br>
-  //             <input
-  //                 onChange={handleChange}
-  //                 type='password'
-  //                 name='password'
-  //                 // autoFocus
-  //                 placeholder='Enter your password'
-  //                 value={Logininfo.password}
-  //             />
-  //         </div>
-  //         <button type='submit' style={{ width: '100px', marginLeft: '10px' , marginTop: '10px', borderRadius: '14px'}}>Login</button>
-  //         <span>Don't have an account?
-  //             <Link to="/signup" className='link'>signup</Link><br></br>
-  //             <Link to="/forgotpassword" className='link'>Forgot Password?</Link>
-  //         </span>
-          
-  //       </form>
-  //       {/* <ToastContainer/> */}
-  //       <hr></hr>
-  //       <div class="g-signin-button" onClick={googleLogin}>
-  //       <div class="content-wrapper">
-  //           <img class="google-logo" src="./image.png" alt='google' />
-  //           <span class="button-text">Sign in with Google</span>
-  //       </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Function to toggle password visibility
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
-    <div className="main">
-      <div className="container" style={{ width: '600px' }}>
-        <Link to="/" className="link">Home</Link>
-        <h1 className="heading">Login</h1>
-        <form onSubmit={handleLogin}>
-          <div className="box">
+    <div className="body">
+      <header>
+      <nav id="nav" className="nav">
+          <div className="logo" id="logo">Elite Designs</div>
+          <button
+          className="hamburger"
+          onClick={() =>{ setNavOpen(!navOpen);console.log("Hamburger clicked. navOpen state:", !navOpen);}}
+          aria-expanded={navOpen}
+          aria-controls="navitems"
+        >
+          ☰
+        </button>
+          <div className={!navOpen ? 'navitems' : 'notnavitems'} id="navitems">
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/explore">Explore</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
+              <button onClick={() => window.location.href='/login'} className="uploadbtn">Get Started</button>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <div className="containerlogin">
+        {/* <Link to="/" className="link h">Home</Link> */}
+        <h2 className="heading">Login</h2>
+        <form onSubmit={handleLogin} id="login-form">
+          <div className="details">
             <label htmlFor="email">Email:</label><br />
             <input
               onChange={handleChange}
@@ -154,21 +134,24 @@ const Login = () => {
               name="email"
               autoFocus
               placeholder="Enter your Email"
-              value={Logininfo.Email}
+              value={Logininfo.email}
             />
           </div>
-          <div className="box">
+          <div className="details">
             <label htmlFor="password">Password:</label><br />
             <input
               onChange={handleChange}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Enter your password"
               value={Logininfo.password}
             />
+            <button type="button" id="togglePassword" className="toggle-password" style={{width:"fit-content"}} onClick={togglePassword}>
+            {showPassword ? <i className="fas fa-eye-slash a"></i> : <i className="fas fa-eye a"></i>}
+          </button>
           </div>
-          <button type="submit" className="login-button">Login</button>
-          <span>Don't have an account?
+          <button type="submit" className="bu">Login</button><br></br>
+          <span className='s'>Don't have an account?
             <Link to="/signup" className="link"> Sign Up</Link><br />
             <Link to="/forgotpassword" className="link">Forgot Password?</Link>
           </span>
@@ -181,7 +164,15 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <footer style={{ backgroundColor: "black" }}className='lfooter'>
+        <div className="footer">
+          <p>©2024 Elite Designs</p>
+          <p className="socialmedia">E-mail, Instagram, X</p>
+          <p>elitedesigns@gmail.com</p>
+        </div>
+      </footer>
     </div>
+    
   );
   
 }

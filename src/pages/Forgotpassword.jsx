@@ -194,7 +194,7 @@ const Forgotpassword = () => {
   };
       
   return (
-    <div className='container'>
+    <div className='fp-container'>
       <h1>Forgot Password</h1>
       <form onSubmit={handleLogin}>
         <div className='box'>
@@ -209,12 +209,12 @@ const Forgotpassword = () => {
             value={Logininfo.email}
             required
           />
-        </div>
+        </div><br />
         <button onClick={sendotp} disabled={otpSent}>Send OTP</button>
         {otpSent && (
           <div className='box'>
             <label htmlFor='otp'>OTP:</label><br />
-            <div className="value">
+            <div className="value" >
               {otp.map((value, index) => (
                 <input
                   key={index}

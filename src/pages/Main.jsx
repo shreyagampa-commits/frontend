@@ -1,12 +1,13 @@
 // src/pages/Main.jsx
 import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'; // Corrected import
 import { API_URL } from '../data/apipath';
-import './Main.css';
+import '../css/Main.css';
 
 
 const Main = () => {
+    const [navOpen, setNavOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [generatedImage, setGeneratedImage] = useState(null);
     const [canseletedFile, setCanseletedFile] = useState(null);
@@ -62,12 +63,12 @@ const Main = () => {
             }
         };
         fetchUserData();
-        // const canvas = canvasRef.current;
-        // if (canvas) {
-        //     const ctx = canvas.getContext('2d');
-        //     ctx.fillStyle = canvasBackgroundColor;
-        //     ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // }
+        const canvas = canvasRef.current;
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = canvasBackgroundColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
         const resizeCanvas = () => {
             const canvas = canvasRef.current;
             if (canvas) {
@@ -235,40 +236,40 @@ const Main = () => {
         e.preventDefault();
     };
 
-    const delacc = async () => {
-        if (!user || !user.employee._id) {
-            console.error('User data is not loaded yet');
-            return;
-        }
+    // const delacc = async () => {
+    //     if (!user || !user.employee._id) {
+    //         console.error('User data is not loaded yet');
+    //         return;
+    //     }
 
-        const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
-        if (!confirmDelete) {
-            return;
-        }
+    //     const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    //     if (!confirmDelete) {
+    //         return;
+    //     }
 
-        try {
-            const response = await fetch(`${API_URL}/vendor/deletevendor/${user.employee._id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('logintoken')}`,
-                    'Content-Type': 'application/json',
-                },
-            });
+    //     try {
+    //         const response = await fetch(`${API_URL}/vendor/deletevendor/${user.employee._id}`, {
+    //             method: 'DELETE',
+    //             headers: {
+    //                 'Authorization': `Bearer ${localStorage.getItem('logintoken')}`,
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
 
-            const data = await response.json();
-            console.log('Account deletion response:', data);
+    //         const data = await response.json();
+    //         console.log('Account deletion response:', data);
 
-            // After account deletion, log the user out and navigate to the login page
-            localStorage.removeItem('logintoken');
-            navigate('/login');
-        } catch (error) {
-            console.error('Error deleting account:', error);
-        }
-    };
+    //         // After account deletion, log the user out and navigate to the login page
+    //         localStorage.removeItem('logintoken');
+    //         navigate('/login');
+    //     } catch (error) {
+    //         console.error('Error deleting account:', error);
+    //     }
+    // };
     // const clearCanvas = () => {
     //     const canvas = canvasRef.current;
     //     const ctx = canvas.getContext('2d');
@@ -515,20 +516,60 @@ const Main = () => {
     //         </div>
     //     </div>
     // );
+    const handleTouchStart = (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        const touch = e.touches[0];
+        const rect = canvasRef.current.getBoundingClientRect();
+        const offsetX = touch.clientX - rect.left;
+        const offsetY = touch.clientY - rect.top;
+        startDrawing({ nativeEvent: { offsetX, offsetY } });
+    };
+    
+    const handleTouchMove = (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        draw(e); // Call the draw function here
+    };
+    
+    const handleTouchEnd = () => {
+        stopDrawing(); // Ensure the drawing stops when touch ends
+    };
     
     return (
         <div className='content'>
-            <h1 className="text-center text-primary mb-4">Jewelry Pattern Generator</h1>
-            <div className="d-flex flex-wrap justify-content-center mb-4">
-                <button onClick={handleLogout} className='btn btn-danger mx-2 mb-2'>Logout</button>
-                <button onClick={() => navigate('/up')} className='btn btn-warning mx-2 mb-2'>Update Password</button>
-                <button onClick={delacc} className='btn btn-danger mx-2 mb-2'>Delete Account</button>
-                <button className='btn btn-primary mx-2 mb-2' onClick={() => navigate('/profile')}>Profile</button>
-                <button className='btn btn-secondary mx-2 mb-2' onClick={() => navigate('/collections')}>Collections</button>
-            </div>
-    
-            <div className="container">
-                <h2 className="text-center mb-4">Welcome, {user ? user.employee.username : 'User'}!</h2>
+            <header>
+            <nav id="nav" className="nav">
+            <div className="logo" id="logo">Elite Designs</div>
+          <button
+          className="hamburger"
+          onClick={() =>{ setNavOpen(!navOpen);}}
+          aria-expanded={navOpen}
+          aria-controls="navitems"
+        >
+          ☰
+        </button>
+          <div className={!navOpen ? 'navitems' : 'notnavitems'} id="navitems">
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/explore">Explore</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
+              <button className='btn btn-warning mx-2 mb-2' onClick={() => navigate('/collections')}>My Collections</button>
+            </ul>
+          </div>
+                <div className="dropdown">
+                    <button className="drop-down" />
+                    <div className="dropdown-content">
+                    {/* <Link to="/"><span id="user-details">User</span></Link> */}
+                    <button className='btn btn-primary mx-2 mb-2' onClick={() => navigate('/profile')}>Profile</button>
+                    {/* <button to="/" id="logout-link">Logout</button> */}
+                    <button onClick={handleLogout} className='btn btn-danger mx-2 mb-2'>Logout</button>
+                    </div>
+                </div>
+                </nav>
+            </header>
+        
+            <div className="container" style={{ marginTop: '60px'}}>
+            <h1 className="text-center text-white mb-4 mt-4">AI-Driven Jewelry Transforming Sketches into Stunning Creations</h1>
+                <h2 className="text-center text-white mb-4 mt-4 fw-bold">Welcome, {user ? user.employee.username : 'User'}!</h2>
                 {user ? (
                     <div className="text-center">
                         {/* Drag and Drop Area */}
@@ -539,7 +580,7 @@ const Main = () => {
                             className="border border-dashed p-4 mb-4"
                             style={{ backgroundColor: '#e9ecef', borderRadius: '10px', cursor: 'pointer' }}
                         >
-                            <h5 className="text-center">Drag and Drop your files here or click to upload</h5>
+                            <h5 className="text-center">Drag and Drop or click to upload your high resolution pencil sketch image</h5>
                             <input
                                 type="file"
                                 id="fileInput"
@@ -573,7 +614,7 @@ const Main = () => {
                         <button onClick={onUpload} className='btn btn-success mt-4'>Upload Sketch</button>
     
                         {/* Drawing Canvas */}
-                        <h3 className="mt-5">Draw Your Design</h3>
+                        {/* <h3 className="mt-5">Draw Your Design</h3>
                         <div className="canvas-container mt-3 d-flex flex-column align-items-center">
                             <canvas
                                 ref={canvasRef}
@@ -583,6 +624,9 @@ const Main = () => {
                                 onMouseMove={draw}
                                 onMouseUp={stopDrawing}
                                 onMouseLeave={stopDrawing}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={handleTouchEnd}
                                 className="border"
                                 style={{ width: '100%', maxWidth: '500px', height: 'auto' }} // Responsive square size
                             />
@@ -633,11 +677,19 @@ const Main = () => {
                                 </a>
                             </div>
                         ) : (canloading && <div className="spinner-border m-5" role="status"></div>)}
+                     */}
                     </div>
                 ) : (
                     <p>Loading user details...</p>
                 )}
             </div>
+            <footer style={{ backgroundColor: "black" }}className='lfooter'>
+        <div className="footer">
+          <p>©2024 Elite Designs</p>
+          <p className="socialmedia">E-mail, Instagram, X</p>
+          <p>elitedesigns@gmail.com</p>
+        </div>
+      </footer>
         </div>
     );
     
