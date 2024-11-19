@@ -87,7 +87,6 @@ function Home() {
 
       </header>
       <div className="intro-slide">
-        <h4 className="websitename" style={{ color: "white" }}>ELITE</h4>
         <p className="introname">The Jewelry Design Pattern Generation</p>
         <video id="Video" autoPlay muted loop>
           <source src="img/vido.mp4" type="video/mp4" />

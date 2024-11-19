@@ -1,11 +1,40 @@
 body {
   /* overflow: hidden; Prevent scrolling */
+  /* position: relative; */
+  overflow: auto;
   background-color: #f0f2f5; /* Light background for contrast */
   font-family: 'Arial', sans-serif; /* Modern font */
   font-size: 14px; /* Base font size */
 }
+html, body {
+  overflow: auto; /* Allows scrolling */
+}
+
+*{
+  overflow:visible;
+}
+.f{
+  font-size: large;
+}
+.d-none{
+  display: none;
+}
+.up{
+  margin-bottom: 200px;
+}
+.content{
+  overflow: visible;
+  min-height: 100%; 
+  position: static;
+  background: url('../img/Sakina_Z_IMG12157_FIV.jpg');
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  background-position: center;
+}
 .content::before {
   /* padding: 20px; */
+  overflow: auto;
   content: '';
   background: url('../img/Sakina_Z_IMG12157_FIV.jpg');
   background-repeat: no-repeat;
@@ -16,7 +45,7 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  filter: brightness(0.5);
+  /* filter: brightness(0.5); */
   z-index: -1;
 }
 h1, h2 {
@@ -26,8 +55,9 @@ h1, h2 {
   position: relative;
 }
 h1.text-center {
-  margin-bottom: 30px; /* Space below main heading */
+  margin-bottom: 20px; 
 }
+
 
 .navitems {
     /* display: 'block'; */
@@ -150,26 +180,28 @@ canvas {
   background-color: #6c757d; /* Bootstrap secondary color */
 }
 
-
+.main-container{
+  margin-bottom: 20px;
+}
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 8vh;
+  height: 20px;
+  font-size: x-small;
 }
-
 .footer p {
-  font-family: "Cormorant", serif;
-  color: rgb(158, 158, 158);
-  margin: 1.2vh;
+    font-family: "Cormorant", serif;
+    color: rgb(158, 158, 158);
+    margin: 1.2vh;
 }
 
 .copyright,
 .mail {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .socialmedia {
-  font-size: large;
-}
+    font-size: xx-small;
+} 
