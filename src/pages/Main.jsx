@@ -4,8 +4,6 @@ import { Link,useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode'; // Corrected import
 import { API_URL } from '../data/apipath';
 import '../css/Main.css';
-import { set } from 'mongoose';
-
 
 const Main = () => {
     const [navOpen, setNavOpen] = useState(false);
@@ -249,7 +247,7 @@ const Main = () => {
             // const formData = new FormData();
             // formData.append('image', selectedFile);
 
-            const response = await fetch(`${API_URL}/vendor/predict/${user.employee._id}`, {
+            const response = await fetch(`${API_URL}/vendor/${selectedValue}/${user.employee._id}`, {
                 method: 'POST',
                 // body: formData,
             });
@@ -342,7 +340,10 @@ const Main = () => {
     const handleTouchEnd = () => {
         stopDrawing(); // Ensure the drawing stops when touch ends
     };
-    
+    const [selectedValue, setSelectedValue] = useState('gold'); 
+    const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+    };
     return (
         <div className='content'>
             <header>
@@ -420,7 +421,12 @@ const Main = () => {
                             ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
                         </div>
                         {/* Upload Sketch Button */}
-                        <button onClick={onUpload} style={{ }} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
+                        <select value={selectedValue} onChange={handleChange} className={`dd ${!gen? 'd-none' : ''}`}>
+                        <option value="gold">GOLD</option>
+                        <option value="silver">SILVER</option>
+                        {/* <option value="Option 3">Option 3</option> */}
+                        </select>
+                       <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
     
                         {/* Drawing Canvas */}
                         {/* <h3 className="mt-5">Draw Your Design</h3>

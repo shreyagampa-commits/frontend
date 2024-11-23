@@ -107,7 +107,7 @@ function Home() {
         <div className="c1 ltranslate" id="matter1">
           <h3>Visualize Jewelry Designs Instantly</h3>
           <p>Upload a basic image and generate high-quality jewelry images</p>
-          <button className="c1" onClick={() => window.location.href='/login'}>Generate</button>
+          <button className="c1" onClick={() => Navigate('/login')}>Generate</button>
         </div>
         <div className="c1 translate" id="image11">
           <img src="img/im1.jpg" alt="none" />
@@ -119,7 +119,7 @@ function Home() {
         <div className="middle2 c2item2 c2items" id="middle">
           <p>Elite presents Jewelry Collections</p>
           <p>Dive into a curated collection where technology meets artistry</p>
-          <button className="explorebtn" onClick={() => window.location.href='/login'}>Explore Now</button>
+          <button className="explorebtn" onClick={() => Navigate('/login')}>Explore Now</button>
         </div>
         <div className="right2 c2items c2item3 c2img" id="right2" style={{ backgroundImage: `url(${rightImages[currentIndex]})` }} />
       </div>
@@ -127,7 +127,7 @@ function Home() {
       <div className="contact c3 container3" id="contact" style={{ backgroundColor: "black" ,color:"white"}}>
         <h4>ELITE</h4>
         <p>We are a team of innovative college students turning basic jewelry concepts into extraordinary designs.</p>
-        <button onClick={() => window.location.href='/login'}>GET IN TOUCH →</button>
+        <button onClick={() => Navigate('/login')}>GET IN TOUCH →</button>
       </div>
       
       <footer style={{ backgroundColor: "black" }}>

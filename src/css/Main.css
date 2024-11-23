@@ -48,6 +48,10 @@ html, body {
   /* filter: brightness(0.5); */
   z-index: -1;
 }
+.dd{
+ margin-right: 20px;
+}
+
 h1, h2 {
   color: #007bff; /* Primary color for headings */
 }

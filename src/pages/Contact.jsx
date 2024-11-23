@@ -66,7 +66,7 @@ const Contact = () => {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/explore">Explore</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
-              <button onClick={() => window.location.href='/login'} className="uploadbtn">Get Started</button>
+              <button onClick={() => Navigate('/login')} className="uploadbtn">Get Started</button>
             </ul>
           </div>
         </nav>

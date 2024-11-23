@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link , useNavigate} from 'react-router-dom'
+import { Link , Navigate, useNavigate} from 'react-router-dom'
 // import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useState } from 'react'
@@ -99,7 +99,7 @@ const Signup = () => {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/explore">Explore</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
-              <button onClick={() => window.location.href='/login'} className="uploadbtn">Get Started</button>
+              <button onClick={() => Navigate('/login')} className="uploadbtn">Get Started</button>
             </ul>
           </div>
         </nav>
