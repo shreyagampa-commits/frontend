@@ -105,13 +105,14 @@ const Main = () => {
 
     const imgpost = (e) => {
         setgeni(false);
-        setGen(true);
         const files = Array.from(e.target.files);
         setGivenimg(files.map(file => URL.createObjectURL(file)));
-
+        setGen(true);
         // Set the selected file to state
         setSelectedFile(files[0]); // Assuming you want to use the first file
-
+        if(selectedFile!=null){
+            setGen(false);
+        }
         const formData = new FormData();
         files.forEach(file => formData.append('images', file)); // Append each file
 
@@ -318,7 +319,31 @@ const Main = () => {
         ctx.closePath();
         setIsDrawing(false);
     };
+    const handleDownload = async (imageUrl, imageName) => {
+        try {
+            const response = await fetch(imageUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                },
+            });
 
+            if (!response.ok) {
+                throw new Error('Failed to fetch image');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', imageName);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+        } catch (error) {
+            console.error('Error downloading the image:', error);
+        }
+    };
     const clearCanvas = () => {
         const ctx = canvasRef.current.getContext('2d');
         ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -340,6 +365,12 @@ const Main = () => {
     const handleTouchEnd = () => {
         stopDrawing(); // Ensure the drawing stops when touch ends
     };
+    const rgen=()=>{
+        setgeni(true);
+        const randomIndex = Math.floor(Math.random() * 24)+1;
+        setGeneratedImage(`${API_URL}/rcimg/s${randomIndex}.png`);
+        setGivenimg([`${API_URL}/rsimg/s${randomIndex}.png`]);
+    }
     const [selectedValue, setSelectedValue] = useState('gold'); 
     const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -406,17 +437,17 @@ const Main = () => {
                                 <div key={index} className="position-relative m-2">
                                     <img src={image} className="storeimg img-thumbnail" height={300} width={300} alt={`Uploaded preview ${index}`} />
                                     {/* Download Button */}
-                                    <a href={image} download={`uploaded_image_${index}.png`} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+                                    <p href={image} onClick={()=>handleDownload(image, "uploaded_preview")} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
-                                    </a>
+                                    </p>
                                 </div>
                             ))}
                             {(generatedImage && geni) ? (
                                 <div className="position-relative m-2">
                                     <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={300} width={300} />
-                                    <a href={generatedImage} download={generatedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
+                                    <p href={generatedImage} onClick={()=>handleDownload(generatedImage, "generated_jewelryimg")} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
-                                    </a>
+                                    </p>
                                 </div>
                             ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
                         </div>
@@ -427,7 +458,7 @@ const Main = () => {
                         {/* <option value="Option 3">Option 3</option> */}
                         </select>
                        <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
-    
+                        <button onClick={rgen} className={`btn btn-success mt-4 mb-4 ${gen? 'd-none' : ''}`}>Random IMG generate</button>
                         {/* Drawing Canvas */}
                         {/* <h3 className="mt-5">Draw Your Design</h3>
                         <div className="canvas-container mt-3 d-flex flex-column align-items-center">
