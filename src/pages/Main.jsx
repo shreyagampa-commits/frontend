@@ -190,7 +190,7 @@ const Main = () => {
     
     const triggerPrediction = async (file) => {
         try {
-            const response = await fetch(`${API_URL}/vendor/predict/${user.employee._id}`, {
+            const response = await fetch(`${API_URL}/vendor/gold/${user.employee._id}`, {
                 method: 'POST',
                 body: JSON.stringify({ fileName: file.name }), // Optionally, send the file name to the prediction endpoint
                 headers: {
@@ -460,7 +460,7 @@ const Main = () => {
                        <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
                         <button onClick={rgen} className={`btn btn-success mt-4 mb-4 ${gen? 'd-none' : ''}`}>Random IMG generate</button>
                         {/* Drawing Canvas */}
-                        {/* <h3 className="mt-5">Draw Your Design</h3>
+                        <h3 className="mt-5">Draw Your Design</h3>
                         <div className="canvas-container mt-3 d-flex flex-column align-items-center">
                             <canvas
                                 ref={canvasRef}
@@ -523,7 +523,7 @@ const Main = () => {
                                 </a>
                             </div>
                         ) : (canloading && <div className="spinner-border m-5" role="status"></div>)}
-                     */}
+                    
                     </div>
                 ) : (
                     <p>Loading user details...</p>

@@ -87,7 +87,8 @@ body {
 
 .navitems {
     /* display: 'block'; */
-    position: relative;
+    position: relative
+    ;
     right: 40px;
 }
 .notnavitems {

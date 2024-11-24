@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { API_URL } from '../data/apipath';
 import { jwtDecode } from 'jwt-decode'; // Correct import
 import { useEffect, useState } from 'react';
@@ -104,7 +104,7 @@ const Collections = () => {
                 if (user.employee.images.length > 2) {
                   setBool(false);
                 }
-                window.location.reload();
+                Navigate('/collections');
                 alert('Image deleted successfully');
             } catch (error) {
                 console.error('Error deleting the image:', error);
@@ -134,7 +134,7 @@ const Collections = () => {
                         images: [],
                     },
                 }));
-                window.location.reload();
+                Navigate('/collections');
                 alert('All images deleted successfully');
             } catch (error) {
                 console.error('Error deleting all images:', error);
