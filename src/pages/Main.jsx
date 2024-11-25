@@ -107,11 +107,13 @@ const Main = () => {
         setgeni(false);
         const files = Array.from(e.target.files);
         setGivenimg(files.map(file => URL.createObjectURL(file)));
-        setGen(true);
+        
         // Set the selected file to state
         setSelectedFile(files[0]); // Assuming you want to use the first file
-        if(selectedFile!=null){
+        if(files[0]==null){
             setGen(false);
+        }else{
+            setGen(true);
         }
         const formData = new FormData();
         files.forEach(file => formData.append('images', file)); // Append each file
