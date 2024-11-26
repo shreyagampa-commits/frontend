@@ -19,33 +19,34 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert("Form submitted successfully!");
+    Navigate('/login');
+    // try {
+    //   // const response = await fetch('/contact', {
+    //   //   method: 'POST',
+    //   //   headers: {
+    //   //     'Content-Type': 'application/json'
+    //   //   },
+    //   //   body: JSON.stringify(formData)
+    //   // });
 
-    try {
-      const response = await fetch('/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert(result.message);
-        setFormData({
-          firstname: '',
-          lastname: '',
-          email: '',
-          mobile: '',
-          concern: ''
-        });
-      } else {
-        alert('Error: ' + result.message);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while submitting the form.');
-    }
+    //   // const result = await response.json();
+    //   // if (response.ok) {
+    //   //   alert(result.message);
+    //   //   setFormData({
+    //   //     firstname: '',
+    //   //     lastname: '',
+    //   //     email: '',
+    //   //     mobile: '',
+    //   //     concern: ''
+    //   //   });
+    //   // } else {
+    //   //   alert('Error: ' + result.message);
+    //   // }
+    // } catch (error) {
+    //   console.error('Error:', error);
+    //   alert('An error occurred while submitting the form.');
+    // }
   };
 
   return (
