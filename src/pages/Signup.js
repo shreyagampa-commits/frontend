@@ -169,10 +169,10 @@ const Signup = () => {
         {/* <ToastContainer/> */}
       </div>
       <footer style={{ backgroundColor: "black", color: "white", position: "fixed", bottom: "0", width: "100%", height: "4vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "0.8rem"}}className='lfooter'>
-        <div className="footer">
-          <p>©2024 Elite Designs</p>
+      <div className="footer">
+          <p className='copyright'>©2024 Elite Designs</p>
           <p className="socialmedia">E-mail, Instagram, X</p>
-          <p>elitedesigns@gmail.com</p>
+          <p className='mail'>elitedesigns.g169@gmail.com</p>
         </div>
       </footer>
     </div>

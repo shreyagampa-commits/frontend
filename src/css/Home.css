@@ -754,3 +754,26 @@ html {
 .socialmedia {
     font-size: large !important;
 }
+/* Floating QR Code Button */
+.qr-btn {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .qr-btn {
+      display: none; 
+    }
+  }
+@media (max-width: 768px) {
+    footer p{
+        font: 0.11em sans-serif;;
+    }
+}

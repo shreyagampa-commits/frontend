@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/contact.css';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../data/apipath';
 const Contact = () => {
   const Navigate = useNavigate();
   const [navOpen, setNavOpen] = useState(false);
@@ -19,34 +20,38 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Form submitted successfully!");
-    Navigate('/login');
-    // try {
-    //   // const response = await fetch('/contact', {
-    //   //   method: 'POST',
-    //   //   headers: {
-    //   //     'Content-Type': 'application/json'
-    //   //   },
-    //   //   body: JSON.stringify(formData)
-    //   // });
-
-    //   // const result = await response.json();
-    //   // if (response.ok) {
-    //   //   alert(result.message);
-    //   //   setFormData({
-    //   //     firstname: '',
-    //   //     lastname: '',
-    //   //     email: '',
-    //   //     mobile: '',
-    //   //     concern: ''
-    //   //   });
-    //   // } else {
-    //   //   alert('Error: ' + result.message);
-    //   // }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    //   alert('An error occurred while submitting the form.');
-    // }
+    console.log(formData);
+    try {
+      const response = await fetch(`http://localhost:4000/vendor/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          email: formData.email,
+          mobile: formData.mobile,
+          concern: formData.concern
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        alert(result.feedback);
+        setFormData({
+          firstname: '',
+          lastname: '',
+          email: '',
+          mobile: '',
+          concern: ''
+        });
+      } else {
+        alert('Error: ' + result.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while submitting the form.');
+    }
   };
 
   return (
@@ -124,10 +129,10 @@ const Contact = () => {
         </form>
       </div>
       <footer style={{ backgroundColor: "black", color: "white", position: "fixed", bottom: "0", width: "100%", height: "4vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "0.8rem"}}className='lfooter'>
-        <div className="footer">
-          <p>©2024 Elite Designs</p>
+      <div className="footer">
+          <p className='copyright'>©2024 Elite Designs</p>
           <p className="socialmedia">E-mail, Instagram, X</p>
-          <p>elitedesigns@gmail.com</p>
+          <p className='mail'>elitedesigns.g169@gmail.com</p>
         </div>
       </footer>
     </div>

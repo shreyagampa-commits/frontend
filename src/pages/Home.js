@@ -142,14 +142,18 @@ function Home() {
         <p>We are a team of innovative college students turning basic jewelry concepts into extraordinary designs.</p>
         <button onClick={() => window.location.href='/login'}>GET IN TOUCH →</button>
       </div>
-      
       <footer style={{ backgroundColor: "black" }}>
+      <button className="qr-btn">
+          <img src="qr.jpg" alt="QR Code" style={{ width: '100px' }} />
+        </button>
         <div className="footer">
           <p className='copyright'>©2024 Elite Designs</p>
           <p className="socialmedia">E-mail, Instagram, X</p>
-          <p className='mail'>elitedesigns@gmail.com</p>
+          <p className='mail'>elitedesigns.g169@gmail.com</p>
         </div>
       </footer>
+      
+
     </>
   );
 }

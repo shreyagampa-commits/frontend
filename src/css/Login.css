@@ -277,6 +277,9 @@ input{
 .link:hover {
     color: rgb(255, 255, 255);
 }
+.g-signin-button{
+    padding: 20px;
+}
 hr{
     margin: 0px 0;
     color: inherit;
@@ -360,6 +363,10 @@ hr{
     *{
         font-size: small;
     }
+    .g-signin-button{
+        top:260px;
+        left: 30px;
+    }
     .h{
         top: 15px;
         left: 20px;
@@ -417,6 +424,15 @@ hr{
     .s{
         font-size: 18px;
     }
+    .g-signin-button{
+        top:260px;
+        left: 10px;
+
+    }
+    .h{
+        top: 15px;
+        left: 20px;
+    }
     .containerlogin {
         width: 95%; 
         padding: 10px; 
@@ -441,7 +457,7 @@ hr{
     .toggle-password2 {
         right: 22px;
     }.toggle-password{
-        top: 42%;
+        top: 32%;
     }
     .toggle-password1{
         top: 45.5%;
