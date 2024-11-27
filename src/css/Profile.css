@@ -1,7 +1,7 @@
 .conten::before{
     padding: 20px;
     content: '';
-    background: url('../img/whitebg.jpg');
+    background: url('../img/t6.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -13,13 +13,9 @@
     filter: brightness(1);
     z-index: -1;
 }
-/* .content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;    
-} */
-
+*{
+    color: white;
+}
 .navitems {
     /* display: 'block'; */
     position: fixed;
@@ -45,6 +41,22 @@
     justify-content: center;
     height: 100vh;
 }
+.pb{
+    background-color: rgb(255 182 255);
+    color: rgb(0, 0, 0);
+    border-radius: 20px;
+    margin: 20px;
+    width: 180px;
+}
+.pb:hover{
+    background-color: rgb(42, 8, 42);
+    color: white;
+    border: 0.5px solid white;
+}
 .profile-container{
     margin-bottom: 50px;
+    backdrop-filter: blur(3px);
+    padding: 70px;
+    position: absolute;
+    left: 10vw;
 }

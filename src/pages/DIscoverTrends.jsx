@@ -42,6 +42,7 @@ const DiscoverTrends = () => {
     <div>
       <header>
         <nav id="nav" className="explore-nav">
+        <img src={'ed.jpg'} alt="logo" className="imglogo" />
           <div className="explore-logo" id="logo">Elite Designs</div>
           <button
           className="hamburger"

@@ -79,6 +79,15 @@
     transition: ease-out .5s;
 }
 
+.uploadbtn {
+    margin-top: 10px;
+    padding: 7px 13px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+    background-color: white;
+}
 .contact-page .uploadbtn {
     padding: 7px 13px;
     border-radius: 5px;

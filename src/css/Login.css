@@ -34,15 +34,11 @@
 .navitems {
     position: absolute;
     right: 0;
+    top:10px;
     font-size: 12px;
     margin: 0px 32px;
 }
 
-.navitems {
-    /* display: 'block'; */
-    position: absolute;
-    right: 40px;
-}
 .notnavitems {
     display: flex;
     flex-direction: column;
@@ -58,12 +54,13 @@
 }
 /* Login container styling */
 .containerlogin {
-    color: yellow;
+    color: rgb(237, 221, 178);
     position: relative;
     border: 2px solid white;
-    margin: 40px 10vh;
+    margin: 20vh 20vh;
     padding: 40px;
     width: 90%;
+    height: auto;
     max-width: 400px;
     border-radius: 28px;
     backdrop-filter: blur(10px);
@@ -71,7 +68,6 @@
     font-size: 15px;
     transition: width 0.3s ease-in-out;
 }
-
 /* Google Sign-in Button */
 .g-signin-button {
     display: flex;
@@ -79,17 +75,27 @@
     justify-content: center;
     padding: 10px;
     background-color: white;
-    color: black;
+    color: rgb(27, 7, 7);
     border: none;
-    border-radius: 25px;
+    border-radius: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.2s ease;
     cursor: pointer;
+    height: 35px;
+    width: 280px;
+    position: absolute;
+    left:62px;
+    bottom: 19px;
+}
+
+.button-text{
+    font-size: 10px;
 }
 
 .g-signin-button:hover {
     border-radius: 0px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: rgb(233, 233, 233);
 }
 
 .content-wrapper {
@@ -104,27 +110,25 @@
 }
 
 .button-text {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: black;
 }
 
 /* Styling for input fields */
 .details input {
     text-align: center;
     display: block;
-    width: 90%;
+    width: 70%;
+    height: 35px;
     max-width: 400px;
-    padding: 7px;
+    padding: 0px;
     border: 2px solid black;
     margin: 10px auto;
-    font-size: 18px;
+    font-size: 14px;
     border-radius: 8px;
 }
 
-.containerlogin h1 {
-    color: antiquewhite;
-    text-align: center;
-}
 
 .containerlogin button {
     border-radius: 6px;
@@ -132,6 +136,9 @@
     width: 40%;
     padding: 5px;
     margin: 15px auto;
+    margin-bottom: 0px;
+    color:black;
+    background-color: antiquewhite;
     text-align: center;
     /* font-size: 16px; */
 }
@@ -160,7 +167,6 @@
 .dropdown {
     position: relative;
     display: inline-block;
-
     position: absolute;
     right: 0;
 }
@@ -216,7 +222,15 @@ input{
         padding: 10px 0;
         border-bottom: 1px solid #fff;
     }
-
+    .uploadbtn {
+        margin-top: 10px;
+        padding: 7px 13px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+        background-color: white;
+    }
     .uploadbtn {
         width: 150px;
         margin: 10px;
@@ -233,13 +247,19 @@ input{
     }
 }
 .s {
+    top:5px;
     color: antiquewhite;
     font-size: 1px;
 }
-
+.sl{
+    position: relative;
+    top: 10px;
+}
 .heading {
-    color: white;
-    margin-bottom: 10px;
+    color: rgb(245, 219, 181);
+    margin-bottom: 20px;
+    font-weight: 700;
+
 }
 
 .h {
@@ -247,11 +267,25 @@ input{
     top: 40px;
     left: 40px;
 }
-
-.link:hover {
-    color: gold;
+.link{
+    /* padding: 12px; */
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    color: beige;
+    text-decoration: none;
 }
-
+.link:hover {
+    color: rgb(255, 255, 255);
+}
+hr{
+    margin: 0px 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: .25;
+    position: relative;
+    bottom: 15px;
+}
 .a {
     width: 10px;
     height: 20px;
@@ -263,37 +297,36 @@ input{
     cursor: pointer;
     font-size: 20px;
 }
-
 .toggle-password,
 .toggle-password1,
 .toggle-password2 {
     background-color: white;
     width: fit-content;
     position: absolute;
-    right: 80px;
+    right: 25%;
+    top: 37%;
     transform: translateY(-50%);
     cursor: pointer;
 }
-
-/* Adjust positioning for toggle buttons */
-.toggle-password {
-    top: 44%;
+.toggle-password1{
+    top: 190px;
 }
-.toggle-password1 {
-    top: 56%;
-}
-.toggle-password2 {
-    top: 73%;
+.toggle-password2{
+    top: 236px;
 }
 .s{
     font-size: 15px;
+    margin: 0;
+    position: relative;
+    bottom: 10px;
 }
 /* Responsive styling for tablets and smaller screens */
 @media screen and (max-width: 768px) {
     .containerlogin {
         width: 80%;
         padding: 20px;
-        margin: 120px auto;
+        margin: 30vh auto;
+        height: 315px;
     }
 
     .details input {
@@ -313,6 +346,13 @@ input{
     .button-text {
         font-size: 1rem;
     }
+
+    .toggle-password,
+    .toggle-password1,
+    .toggle-password2 {
+        right: 45px;
+        top: 110px;
+    }
 }
 
 /* Responsive styling for mobile screens */
@@ -329,6 +369,7 @@ input{
         padding: 15px;
         margin: 100px auto;
         font-size: 18px;
+        height: 310px;
     }
 
     .details input {
@@ -345,18 +386,17 @@ input{
         font-size: 0.9rem;
     }
 
-    .toggle-password,
-    .toggle-password1,
+    .toggle-password {
+        right: 23px;
+        top: 34%;
+    }
+    .toggle-password1 {
+        right: 20px;
+        top: 48%;
+    }
     .toggle-password2 {
-        right: 30px;
-    }.toggle-password{
-        top: 41%;
-    }
-    .toggle-password1{
-        top: 54%;
-    }
-    .toggle-password2{
-        top: 72%;
+        right: 20px;
+        top: 63%;
     }
     .containerlogin h1 {
         font-size: 1.5rem;
@@ -399,15 +439,15 @@ input{
     .toggle-password,
     .toggle-password1,
     .toggle-password2 {
-        right: 20px;
+        right: 22px;
     }.toggle-password{
         top: 42%;
     }
     .toggle-password1{
-        top: 54%;
+        top: 45.5%;
     }
     .toggle-password2{
-        top: 73%;
+        top: 61%;
     }
     .containerlogin h1 {
         font-size: 1.2rem;
@@ -416,38 +456,5 @@ input{
     .containerlogin button {
         width: 70%;
         font-size: 12px;
-    }
-    
-}
-.lfooter {
-    position: fixed; /* Fix the footer at the bottom */
-    bottom: 0; /* Align to the bottom edge */
-    left: 0; /* Stretch to the left edge */
-    width: 100%; /* Full width */
-    height: 7vh;
-    background-color: #333; /* Dark background */
-    color: white; /* Text color */
-    text-align: center; /* Center-align the text */
-}
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 8vh;
-}
-
-.footer p {
-    font-family: "Cormorant", serif;
-    color: rgb(158, 158, 158);
-    margin: 1.2vh;
-}
-
-.copyright,
-.mail {
-    font-weight: 700;
-}
-
-.socialmedia {
-    font-size: large;
+    }   
 }

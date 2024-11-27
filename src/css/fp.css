@@ -1,0 +1,10 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.fp-container{
+    background: url('../img/fpbg.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

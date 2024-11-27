@@ -76,8 +76,8 @@ const Profile = () => {
   };
   return (
     <div className='conten'>
-      <h1>PROFILE INFO</h1>
       <div className="profile-container">
+        <h1>PROFILE INFO</h1>
         <h2>Welcome, {user.username}!</h2>
         <form>
           <label htmlFor="username">Username:</label>
@@ -86,9 +86,9 @@ const Profile = () => {
           <label htmlFor="email">Email:</label>
           <div id='pro'>{user.email}</div>
         </form>
+        <button onClick={() => navigate('/up')} className='pb mx-2 mb-2'>Update Password</button>
+        <button onClick={delacc} className='pb mx-2 mb-2'>Delete Account</button>
       </div>
-      <button onClick={() => navigate('/up')} className='btn btn-warning mx-2 mb-2'>Update Password</button>
-      <button onClick={delacc} className='btn btn-danger mx-2 mb-2'>Delete Account</button>
     </div>
   );
 };

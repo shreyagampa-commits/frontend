@@ -53,6 +53,7 @@ const Contact = () => {
     <div className="contact-page">
       <header>
       <nav id="nav" className="nav">
+      <img src={'ed.jpg'} alt="logo" className="imglogo" />
           <div className="logo" id="logo">Elite Designs</div>
           <button
           className="hamburger"

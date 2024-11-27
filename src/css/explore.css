@@ -36,6 +36,7 @@ button {
 .explore-navitems {
     position: absolute;
     right: 40px;
+    top: 10px;
 }
 
 nav ul {
@@ -178,6 +179,7 @@ a:hover {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
+    overflow: hidden;
 }
 
 .explore-carousel .explore-list .explore-item .explore-content{
@@ -199,9 +201,9 @@ a:hover {
 }
 .explore-carousel .explore-list .explore-item .explore-content .explore-title,
 .explore-carousel .explore-list .explore-item .explore-content .explore-topic{
-    font-weight: bold;
+    font-weight: 550;
     font-size: 5em;
-    list-style: 1.3em;
+    /* list-style: 1em; */
 }
 .explore-carousel .explore-list .explore-item .explore-content .explore-topic{
     color: #f1683a;
@@ -220,6 +222,8 @@ a:hover {
     height: 29.37vh;
     flex-shrink: 0;
     position: relative;
+    overflow: hidden;
+    border-radius: 20px;
 }
 .explore-thumbnail .explore-item img {
     width: 100%;
@@ -480,27 +484,4 @@ a:hover {
     .explore-column{
         width: 100%;
     }
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 8vh;
-}
-
-.footer p {
-    font-family: "Cormorant", serif;
-    color: rgb(158, 158, 158);
-    margin: 1.2vh;
-}
-
-.copyright,
-.mail {
-    font-weight: 700;
-}
-
-.socialmedia {
-    font-size: large;
 }

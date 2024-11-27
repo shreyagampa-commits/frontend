@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { API_URL } from '../data/apipath';
 import { useNavigate } from 'react-router-dom';
-
+import '../css/fp.css';
 
 const Forgotpassword = () => {
   const Navigate = useNavigate();

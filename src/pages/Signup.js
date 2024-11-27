@@ -85,6 +85,7 @@ const Signup = () => {
     <div className='body'>
       <header>
       <nav id="nav" className="nav">
+      <img src={'ed.jpg'} alt="logo" className="imglogo" />
           <div className="logo" id="logo">Elite Designs</div>
           <button
           className="hamburger"
@@ -109,7 +110,7 @@ const Signup = () => {
         <h2 className='heading'>Signup</h2>
         <form onSubmit={handleSignup} id="loginform">
           <div className='details'>
-              <label htmlFor='username'>Username:</label><br></br>
+              {/* <label htmlFor='username'>Username:</label><br></br> */}
               <input
                   onChange={handleChange}
                   type='text'
@@ -120,7 +121,7 @@ const Signup = () => {
               />
           </div>
           <div className='details'>
-              <label htmlFor='email'>Email:</label><br></br>
+              {/* <label htmlFor='email'>Email:</label><br></br> */}
               <input
                   onChange={handleChange}
                   type='email'
@@ -131,7 +132,7 @@ const Signup = () => {
               />
           </div>
           <div className='details'>
-              <label htmlFor='password'>Password:</label><br></br>
+              {/* <label htmlFor='password'>Password:</label><br></br> */}
               <input
                   onChange={handleChange}
                   type={showPassword1 ? 'text' : 'password'}
@@ -146,7 +147,7 @@ const Signup = () => {
           </div>
 
           <div className='details'>
-              <label htmlFor='confirmPassword'>Confirm Password:</label><br></br>
+              {/* <label htmlFor='confirmPassword'>Confirm Password:</label><br></br> */}
               <input
                   onChange={handleChange}
                   type={showPassword2 ? 'text' : 'password'}
@@ -160,7 +161,8 @@ const Signup = () => {
               </button>
           </div>
           <button type='submit'className='bu'>Signup</button>
-          <span className='s'>Already have an account?
+          <span className='s'>
+            Already have an account?
               <Link to="/login" className='link'>Login</Link>
           </span>
         </form>

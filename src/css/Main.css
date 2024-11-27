@@ -1,17 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 body {
   /* overflow: hidden; Prevent scrolling */
   /* position: relative; */
-  overflow: auto;
+  /* overflow: auto; */
   background-color: #f0f2f5; /* Light background for contrast */
-  font-family: 'Arial', sans-serif; /* Modern font */
+  font-family: 'Playfair Display', serif; /* Modern font */
   font-size: 14px; /* Base font size */
 }
-html, body {
-  overflow: auto; /* Allows scrolling */
-}
 
-*{
-  overflow:visible;
+html, body,footer,nav {
+  overflow:visible; 
 }
 .f{
   font-size: large;
@@ -22,19 +20,33 @@ html, body {
 .up{
   margin-bottom: 200px;
 }
-.content{
-  overflow: visible;
-  min-height: 100%; 
-  position: static;
-  background: url('../img/Sakina_Z_IMG12157_FIV.jpg');
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  background-attachment: fixed; 
-  background-position: center;
+.uploadbtn {
+  margin-top: 10px;
+  padding: 7px 13px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+  background-color: white;
 }
+.uploadbtns {
+  margin-top: 10px;
+}
+.c{
+  border-radius: 5px;
+}
+.content {
+  position: relative;
+  display: flex;
+  top: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+
 .content::before {
-  /* padding: 20px; */
-  overflow: auto;
   content: '';
   background: url('../img/Sakina_Z_IMG12157_FIV.jpg');
   background-repeat: no-repeat;
@@ -45,28 +57,47 @@ html, body {
   left: 0;
   height: 100%;
   width: 100%;
-  /* filter: brightness(0.5); */
+  filter: brightness(0.2);
   z-index: -1;
 }
-.dd{
- margin-right: 20px;
+.btnp{
+  background-color: rgb(13, 95, 122);
+  color: white;
+  border-radius: 10px;
 }
-
-h1, h2 {
-  color: #007bff; /* Primary color for headings */
+#line1 {
+  font-size: 3rem;
+  font-weight: 620;
+  font-family: 'Playfair Display', serif;
+}
+#line2 {
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
 }
 .nav{
+  position: fixed;
+}
+.text-center {
+  color: black;
+  /* margin-bottom: 20px;  */
+}
+/* .drag{
   position: relative;
+  top: 70px;
 }
-h1.text-center {
-  margin-bottom: 20px; 
-}
-
+.mhead{
+  position: absolute;
+  top: 30px;
+} */
 
 .navitems {
     /* display: 'block'; */
+    top:0px;
     position: relative;
     right: 40px;
+    margin: 0;
+
 }
 .notnavitems {
     display: flex;
@@ -165,7 +196,8 @@ canvas {
 }
 
 .btn-danger {
-  background-color: #dc3545; /* Bootstrap danger color */
+  background-color: #ffffff;
+  color: black;
 }
 
 .btn-success {
@@ -183,29 +215,48 @@ canvas {
 .btn-secondary {
   background-color: #6c757d; /* Bootstrap secondary color */
 }
-
-.main-container{
-  margin-bottom: 20px;
+.imglogo{
+  height: 50px;
+  width: 50px;
 }
+.dd{
+  margin-right: 20px ;
+}
+.main-container{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.inputtext{
+  color: black;
+  width: 40vw;
+  height: auto;
+  font-weight: 430;
+}
+
+
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 20px;
-  font-size: x-small;
+  height: 8vh;
 }
+
 .footer p {
-    font-family: "Cormorant", serif;
-    color: rgb(158, 158, 158);
-    margin: 1.2vh;
+  font-family: "Cormorant", serif;
+  color: rgb(158, 158, 158);
+  margin: 1.2vh;
+  font-size: 14px;
 }
 
 .copyright,
 .mail {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .socialmedia {
-    font-size: xx-small;
-} 
+  font-size: large !important;
+}

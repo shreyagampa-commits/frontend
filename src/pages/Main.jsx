@@ -96,7 +96,6 @@ const Main = () => {
         };
     }, [navigate]);
     
-    
     const handleLogout = () => {
         localStorage.removeItem('logintoken');
         localStorage.removeItem('user');
@@ -377,40 +376,51 @@ const Main = () => {
     const handleChange = (event) => {
     setSelectedValue(event.target.value);
     };
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     return (
         <div className='content'>
             <header>
-            <nav id="nav" className="nav">
-            <div className="logo" id="logo">Elite Designs</div>
-          <button
-          className="hamburger"
-          onClick={() =>{ setNavOpen(!navOpen);}}
-          aria-expanded={navOpen}
-          aria-controls="navitems"
-        >
-          ☰
-        </button>
-          <div className={!navOpen ? 'navitems' : 'notnavitems'} id="navitems">
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/explore">Explore</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
-              <button className='btn btn-warning mx-2 mb-2' onClick={() => navigate('/collections')}>My Collections</button>
-            </ul>
-          </div>
-                <div className="dropdown">
-                    <button className="drop-down" />
-                    <div className="dropdown-content">
-                    {/* <Link to="/"><span id="user-details">User</span></Link> */}
-                    <button className='btn btn-primary mx-2 mb-2' onClick={() => navigate('/profile')}>Profile</button>
-                    {/* <button to="/" id="logout-link">Logout</button> */}
-                    <button onClick={handleLogout} className='btn btn-danger mx-2 mb-2'>Logout</button>
+                <nav id="nav" className="nav">
+                    <img src={'ed.jpg'} alt="logo" className="imglogo" />
+                    <div className="logo" id="logo">Elite Designs</div>
+                    <button
+            className="hamburger"
+            onClick={() =>{ setNavOpen(!navOpen);}}
+            aria-expanded={navOpen}
+            aria-controls="navitems"
+            >
+            ☰
+                    </button>
+                    <div className={!navOpen ? 'navitems' : 'notnavitems'} id="navitems">
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/explore">Explore</Link></li>
+                            <li><Link to="/contact">Contact Us</Link></li>
+                            <button className='btn btn-warning mx-2 mb-2 uploadbtn' onClick={() => navigate('/collections')}>My Collections</button>
+                                <div className="dropdown uploadbtns" >
+                                    <button className="drop-down " onClick={() => setDropdownOpen(!dropdownOpen)}/>
+                                    {dropdownOpen && (
+                                        <div className="dropdown-content c" style={{backgroundColor:"white"}}>
+                                            <button
+                                                className="btn btn-primary mx-2 mb-2"
+                                                onClick={() => navigate('/profile')}
+                                            >
+                                                Profile
+                                            </button>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="btn btn-danger mx-2 mb-2"
+                                            >
+                                                Logout
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                        </ul>
                     </div>
-                </div>
                 </nav>
             </header>
-        
-            <div className="main-container" style={{ marginTop: '25px',marginBottom: '25px'}}>
+            <div className="main-container" style={{ marginTop: '35px', marginBottom: '25px' }}>
             <h1 className="text-center text-white mb-4 mt-4">AI-Driven Jewelry Transforming Sketches into Stunning Creations</h1>
                 <p className="text-center text-white mb-4 mt-4 fw-bold f">Welcome, {user ? user.employee.username : 'User'}!</p>
                 {user ? (
@@ -454,13 +464,14 @@ const Main = () => {
                             ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
                         </div>
                         {/* Upload Sketch Button */}
-                        <select value={selectedValue} onChange={handleChange} className={`dd ${!gen? 'd-none' : ''}`}>
-                        <option value="gold">GOLD</option>
-                        <option value="silver">SILVER</option>
+                        <select value={selectedValue} onChange={handleChange} className={`text-center dd ${!gen? 'd-none' : ''}`}>
+                        <option value="gold" className='text-center'>GOLD</option>
+                        <option value="silver" className='text-center'>SILVER</option>
                         {/* <option value="Option 3">Option 3</option> */}
                         </select>
-                       <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
+                        <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
                         <button onClick={rgen} className={`btn btn-success mt-4 mb-4 ${gen? 'd-none' : ''}`}>Random IMG generate</button>
+                        <div></div>
                         {/* Drawing Canvas */}
                         {/* <h3 className="mt-5">Draw Your Design</h3>
                         <div className="canvas-container mt-3 d-flex flex-column align-items-center">
