@@ -36,6 +36,7 @@ const Contact = () => {
         })
       });
       const result = await response.json();
+      console.log(result.success);
       if (result.success) {
         alert(result.feedback);
         setFormData({
