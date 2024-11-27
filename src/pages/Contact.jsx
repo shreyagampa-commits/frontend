@@ -22,7 +22,7 @@ const Contact = () => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await fetch(`http://localhost:4000/vendor/feedback`, {
+      const response = await fetch(`${API_URL}/vendor/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
