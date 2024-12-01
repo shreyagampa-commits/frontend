@@ -7,6 +7,7 @@ import '../css/Main.css';
 
 const Main = () => {
     const [navOpen, setNavOpen] = useState(false);
+    const [type, setType] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [generatedImage, setGeneratedImage] = useState(null);
     const [canseletedFile, setCanseletedFile] = useState(null);
@@ -104,6 +105,8 @@ const Main = () => {
 
     const imgpost = (e) => {
         setgeni(false);
+        setType('');
+        setGeneratedImage(null);
         const files = Array.from(e.target.files);
         setGivenimg(files.map(file => URL.createObjectURL(file)));
         
@@ -188,7 +191,6 @@ const Main = () => {
             console.error('Error uploading images:', error);
         }
     };
-    
     const triggerPrediction = async (file) => {
         try {
             const response = await fetch(`${API_URL}/vendor/gold/${user.employee._id}`, {
@@ -210,7 +212,6 @@ const Main = () => {
             console.error('Error during prediction:', error);
         }
     };
-    
     const handleDrop = (e) => {
         e.preventDefault();
         const files = Array.from(e.dataTransfer.files);
@@ -234,7 +235,6 @@ const Main = () => {
                 console.error('Error uploading images:', error);
             });
     };
-
     const handleDragOver = (e) => {
         e.preventDefault();
     };
@@ -253,13 +253,22 @@ const Main = () => {
                 method: 'POST',
                 // body: formData,
             });
-
             if (!response.ok) {
                 throw new Error(`Error uploading file: ${response.statusText}`);
             }
-
             const data = await response.json();
-            setGeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+            console.log('Image upload response:', data.error);
+            if(data.error){
+                setLoading(false);
+                alert(data.error);
+            }
+            if(selectedValue==='gold'){
+                setType(data.result.predicted_class);
+                setGeneratedImage(`${API_URL}/output/${data.result.output.node_response.fileName}`);
+            }
+            else{
+                setGeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+            }
             setLoading(false);
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -460,8 +469,9 @@ const Main = () => {
                                     <p href={generatedImage} onClick={()=>handleDownload(generatedImage, "generated_jewelryimg")} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
                                     </p>
+                                    <h1>{type}</h1>
                                 </div>
-                            ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
+                                ) : (loading && <div className="spinner-border m-5" role="status"></div>)}
                         </div>
                         {/* Upload Sketch Button */}
                         <select value={selectedValue} onChange={handleChange} className={`text-center dd ${!gen? 'd-none' : ''}`}>

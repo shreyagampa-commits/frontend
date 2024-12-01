@@ -1,61 +1,154 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
-import jewelryImage from '../img/ab.png'; // Update path accordingly
 
-const Jewelry3DView = () => {
-  const mountRef = useRef(null);
-  
-  useEffect(() => {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 0, 10);
+const App = () => {
+    const containerRef = useRef(null);
+    const sceneRef = useRef(null);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
+    useEffect(() => {
+        const container = containerRef.current;
 
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(jewelryImage, (texture) => {
-      console.log("Texture loaded:", texture); // Confirm texture load
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        sceneRef.current = scene;
 
-      const geometry = new THREE.CylinderGeometry(3, 3, 5, 50, 1, true);
-      const material = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.DoubleSide,
-      });
-      const object3D = new THREE.Mesh(geometry, material);
-      scene.add(object3D);
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            container.clientWidth / container.clientHeight,
+            0.1,
+            1000
+        );
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setClearColor(0x000000, 0); // Transparent background
+        renderer.setPixelRatio(window.devicePixelRatio); // For high-res devices
+        container.appendChild(renderer.domElement);
 
-      const ambientLight = new THREE.AmbientLight(0x404040, 1.5);
-      scene.add(ambientLight);
-      const pointLight = new THREE.PointLight(0xffffff, 1);
-      pointLight.position.set(10, 10, 10);
-      scene.add(pointLight);
+        // Plane Geometry
+        const geometry = new THREE.PlaneGeometry(40, 40); // Double the size
+        const material = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(
+                'https://via.placeholder.com/1024x512' // Default texture
+            ),
+            side: THREE.DoubleSide,
+            transparent: true,
+        });
+        const plane = new THREE.Mesh(geometry, material);
+        scene.add(plane);
 
-      const animate = () => {
-        requestAnimationFrame(animate);
-        object3D.rotation.y += 0.01;
-        renderer.render(scene, camera);
-      };
-      animate();
-    });
+        // Adjust Camera
+        camera.position.set(0, 0, 30);
 
-    const handleResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
+        // Rotate using Mouse Drag
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+
+        const onMouseDown = () => {
+            isDragging = true;
+        };
+
+        const onMouseMove = (event) => {
+            if (isDragging) {
+                const deltaX = event.clientX - previousMousePosition.x;
+                const deltaY = event.clientY - previousMousePosition.y;
+
+                plane.rotation.y += deltaX * 0.005;
+                plane.rotation.x += deltaY * 0.005;
+            }
+            previousMousePosition = { x: event.clientX, y: event.clientY };
+        };
+
+        const onMouseUp = () => {
+            isDragging = false;
+        };
+
+        container.addEventListener('mousedown', onMouseDown);
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseup', onMouseUp);
+
+        // Animation Loop
+        const animate = () => {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        // Cleanup
+        return () => {
+            container.removeChild(renderer.domElement);
+            container.removeEventListener('mousedown', onMouseDown);
+            container.removeEventListener('mousemove', onMouseMove);
+            container.removeEventListener('mouseup', onMouseUp);
+        };
+    }, []);
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const img = new Image();
+            const reader = new FileReader();
+
+            // Load the file into the image
+            reader.onload = (e) => {
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                // Convert canvas content to PNG format
+                const pngURL = canvas.toDataURL('image/png');
+
+                // Create a new texture from the PNG URL
+                const texture = new THREE.TextureLoader().load(pngURL);
+
+                // Set texture filtering to nearest-neighbor to maintain sharpness
+                texture.minFilter = THREE.NearestFilter;
+                texture.magFilter = THREE.NearestFilter;
+
+                // Update the material of the plane with the new PNG texture
+                const scene = sceneRef.current;
+                const plane = scene.children.find((obj) => obj.isMesh);
+                if (plane) {
+                    plane.material.map = texture;
+                    plane.material.needsUpdate = true;
+                }
+            };
+
+            img.onerror = () => {
+                console.error("Failed to load the uploaded image.");
+            };
+        }
     };
-    window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      mountRef.current.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
-  }, []);
-
-  return <div ref={mountRef} style={{ width: '100%', height: '100vh' }} />;
+    return (
+        <div>
+            <h1 style={{ textAlign: 'center' }}>360° Image Viewer</h1>
+            <div style={{ textAlign: 'center', margin: '20px' }}>
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    style={{ marginBottom: '20px' }}
+                />
+            </div>
+            <div
+                ref={containerRef}
+                style={{
+                    width: '100%',
+                    height: '500px',
+                    backgroundColor: 'transparent',
+                    overflow: 'hidden',
+                }}
+            ></div>
+        </div>
+    );
 };
 
-export default Jewelry3DView;
+export default App;
