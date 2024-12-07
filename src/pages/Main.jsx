@@ -176,11 +176,9 @@ const Main = () => {
                 method: 'POST',
                 body: formData,
             });
-    
             if (!response.ok) {
                 throw new Error(`Error uploading images: ${response.statusText}`);
             }
-    
             const data = await response.json();
             console.log('Image upload response:', data);
     
@@ -193,20 +191,26 @@ const Main = () => {
     };
     const triggerPrediction = async (file) => {
         try {
-            const response = await fetch(`${API_URL}/vendor/gold/${user.employee._id}`, {
+            const response = await fetch(`${API_URL}/vendor/${canselectedValue}/${user.employee._id}`, {
                 method: 'POST',
-                body: JSON.stringify({ fileName: file.name }), // Optionally, send the file name to the prediction endpoint
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+                // body: formData,
             });
-    
             if (!response.ok) {
-                throw new Error(`Error predicting file: ${response.statusText}`);
+                throw new Error(`Error uploading file: ${response.statusText}`);
             }
-    
             const data = await response.json();
-            setCangeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+            console.log('Image upload response:', data.error);
+            if(data.error){
+                setCanloading(false);
+                alert(data.error);
+            }
+            if(canselectedValue==='gold'){
+                setType(data.result.predicted_class);
+                setCangeneratedImage(`${API_URL}/output/${data.result.output.node_response.fileName}`);
+            }
+            else{
+                setCangeneratedImage(`${API_URL}/output/${data.result.node_response.fileName}`);
+            }
             setCanloading(false);
         } catch (error) {
             console.error('Error during prediction:', error);
@@ -382,6 +386,10 @@ const Main = () => {
         setGivenimg([`${API_URL}/rsimg/s${randomIndex}.png`]);
     }
     const [selectedValue, setSelectedValue] = useState('gold'); 
+    const [canselectedValue, setCanselectedValue] = useState('gold');
+    const canhandlechange = (event) => {
+        setCanselectedValue(event.target.value);
+    }
     const handleChange = (event) => {
     setSelectedValue(event.target.value);
     };
@@ -434,7 +442,6 @@ const Main = () => {
                 <p className="text-center text-white mb-4 mt-4 fw-bold f">Welcome, {user ? user.employee.username : 'User'}!</p>
                 {user ? (
                     <div className="text-center">
-                        {/* Drag and Drop Area */}
                         <label
                             htmlFor="fileInput"
                             onDrop={handleDrop}
@@ -456,7 +463,7 @@ const Main = () => {
                         <div className="store d-flex justify-content-center flex-wrap">
                             {givenimg.map((image, index) => (
                                 <div key={index} className="position-relative m-2">
-                                    <img src={image} className="storeimg img-thumbnail" height={300} width={300} alt={`Uploaded preview ${index}`} />
+                                    <img src={image} className="storeimg img-thumbnail" height={400} width={400} alt={`Uploaded preview ${index}`} />
                                     {/* Download Button */}
                                     <p href={image} onClick={()=>handleDownload(image, "uploaded_preview")} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
@@ -465,7 +472,7 @@ const Main = () => {
                             ))}
                             {(generatedImage && geni) ? (
                                 <div className="position-relative m-2">
-                                    <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={300} width={300} />
+                                    <img src={generatedImage} alt="Generated jewelry" className="img-thumbnail" height={400} width={400} />
                                     <p href={generatedImage} onClick={()=>handleDownload(generatedImage, "generated_jewelryimg")} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                         &#8681;
                                     </p>
@@ -482,10 +489,9 @@ const Main = () => {
                         <button onClick={onUpload} className={`btn btn-success mt-4 mb-4 ${!gen? 'd-none' : ''}`}>Upload Sketch</button>
                         <button onClick={rgen} className={`btn btn-success mt-4 mb-4 ${gen? 'd-none' : ''}`}>Random IMG generate</button>
                         <div></div>
-                        {/* Drawing Canvas */}
-                        {/* <h3 className="mt-5">Draw Your Design</h3>
+                        {/*<h3 className="mt-5" style={{color:"white" }}>Draw Your Design</h3>
                         <div className="canvas-container mt-3 d-flex flex-column align-items-center">
-                            <canvas
+                            <canvas 
                                 ref={canvasRef}
                                 width={500}
                                 height={500}
@@ -497,7 +503,7 @@ const Main = () => {
                                 onTouchMove={handleTouchMove}
                                 onTouchEnd={handleTouchEnd}
                                 className="border"
-                                style={{ width: '100%', maxWidth: '500px', height: 'auto' }} // Responsive square size
+                                style={{ width: '100%', maxWidth: '500px', height: 'auto',backgroundColor:"white" }} // Responsive square size
                             />
                             <div className="d-flex flex-wrap justify-content-center mt-2">
                                 <button onClick={clearCanvas} className="btn btn-outline-danger me-2 mb-2">Clear Canvas</button>
@@ -512,11 +518,11 @@ const Main = () => {
                                     value={pencilSize}
                                     onChange={(e) => setPencilSize(Number(e.target.value))}
                                     className="form-select"
-                                    style={{ width: '100px' }}
+                                    style={{ width: '100px',color:"black" }}
                                 >
-                                    <option value={1}>1</option>
-                                    <option value={5}>5</option>
-                                    <option value={10}>10</option>
+                                    <option value={1} style={{color:"black"}}>1</option>
+                                    <option value={5} style={{color:"black"}}>5</option>
+                                    <option value={10} style={{color:"black"}}>10</option>
                                 </select>
                             </div>
                             <div className="d-flex flex-wrap justify-content-center mb-2">
@@ -525,35 +531,38 @@ const Main = () => {
                                     id="eraserSize"
                                     value={eraserSize}
                                     onChange={(e) => setEraserSize(Number(e.target.value))}
-                                    className="form-select"
-                                    style={{ width: '100px' }}
+                                    // className="form-select"
+                                    style={{ width: '100px',color:"black" }}
                                 >
-                                    <option value={5}>5</option>
-                                    <option value={10}>10</option>
-                                    <option value={20}>20</option>
+                                    <option value={5} style={{color:"black"}}>5</option>
+                                    <option value={10} style={{color:"black"}}>10</option>
+                                    <option value={20} style={{color:"black"}}>20</option>
                                 </select>
                             </div>
-                            <button onClick={processCanvasImage} className="btn btn-primary mt-4">
+                            <select value={canselectedValue} onChange={canhandlechange} className={`text-center dd`}>
+                                    <option value="gold" className='text-center'>GOLD</option>
+                                    <option value="silver" className='text-center'>SILVER</option>
+                            </select>
+                            <button onClick={processCanvasImage} className="btn btn-primary mt-4" style={{ marginBottom: '1rem'}}>
                                 Process
                             </button>
                         </div>
     
                         {(cangeneratedImage) ? (
-                            <div className="position-relative m-2">
+                            <div className="position-relative m-2" style={{ marginBottom: '3rem'}}>
                                 <img src={cangeneratedImage} alt="Generated jewelry" className="img-thumbnail" height={256} width={256} />
                                 <a href={cangeneratedImage} download={cangeneratedImage.split('-')[1]} className="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-1">
                                     &#8681;
                                 </a>
                             </div>
                         ) : (canloading && <div className="spinner-border m-5" role="status"></div>)}
+                        */}
                     
-                    */}
                     </div>
                 ) : (
                     <p>Loading user details...</p>
                 )}
             </div>
-            
             <footer style={{ backgroundColor: "black", color: "white", position: "fixed", bottom: "0", width: "100%", height: "4vh", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "0.8rem"}}className='lfooter'>
             <div className="footer">
           <p className='copyright'>©2024 Elite Designs</p>
